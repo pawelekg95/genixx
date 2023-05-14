@@ -3,6 +3,6 @@
   "searchingAreaBegin": 1.5,
   "searchingAreaEnd": 3.5,
   "population": 60,
-  "crossingProbability": 0.8,
-  "mutationProbability": 0.000001
+  "crossingProbability": 0.75,
+  "mutationProbability": 0.01
 }

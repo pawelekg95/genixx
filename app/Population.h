@@ -9,7 +9,7 @@
 class Population
 {
 public:
-    Population(parameters::Parameters parameters);
+    explicit Population(parameters::Parameters parameters);
 
     void calculatePhenotypes();
 
