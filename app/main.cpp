@@ -35,6 +35,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         averageCorrectnessVector[generation] = averageCorrectness;
         maxCorrectnessVector[generation] = maxCorrectness;
     }
+
+    std::cout << fmt::format("Best phenotype: {}\n", population.maxCorrectnessPhenotype());
     std::getchar();
 
     std::cout << "Dumping data to file data.json" << std::endl;

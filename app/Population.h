@@ -31,6 +31,8 @@ public:
 
     double maxCorrectness() const;
 
+    double maxCorrectnessPhenotype() const;
+
 private:
     struct Chromosome
     {

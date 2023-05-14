@@ -104,9 +104,9 @@ void Population::crossing()
         {
             for (std::uint32_t j = randomPlaces[i]; j < parameters::cGenes - 1; j++)
             {
-                buffer = m_population[first].genes[i];
-                m_population[first].genes[i] = m_population[first + 1].genes[i];
-                m_population[first + 1].genes[i] = buffer;
+                buffer = m_population[first].genes[j];
+                m_population[first].genes[j] = m_population[first + 1].genes[j];
+                m_population[first + 1].genes[j] = buffer;
             }
         }
         first += 2;
@@ -126,7 +126,7 @@ void Population::mutate()
     {
         if (randoms[i] < m_parameters.mutationProbability)
         {
-            mutationPlace = random(0, parameters::cGenes);
+            mutationPlace = random(0, parameters::cGenes - 1);
             m_population[i].genes[mutationPlace] =
                 (1 - static_cast<std::int8_t>(m_population[i].genes[mutationPlace])) != 0;
         }
@@ -180,6 +180,14 @@ double Population::maxCorrectness() const
         ->fit;
 }
 
+double Population::maxCorrectnessPhenotype() const
+{
+    return std::max_element(m_population.begin(),
+                            m_population.end(),
+                            [](const Chromosome& lhs, const Chromosome& rhs) { return lhs.fit < rhs.fit; })
+        ->phenotype;
+}
+
 std::uint32_t Population::phenotype(std::uint32_t individual) const
 {
     return m_population[individual].genes.to_ulong();
@@ -196,8 +204,7 @@ void Population::normalize()
             return lhs.fit < rhs.fit;
         })->fit;
     double offset = (max - min) / (parameters::cGenes - 1) - min;
-    for (auto& individual : m_population)
-    {
+    std::for_each(m_population.begin(), m_population.end(), [offset](Chromosome& individual) {
         individual.fit += offset;
-    }
+    });
 }
