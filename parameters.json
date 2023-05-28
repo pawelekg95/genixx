@@ -1,8 +1,0 @@
-{
-  "generations" : 100,
-  "searchingAreaBegin": 1.5,
-  "searchingAreaEnd": 3.5,
-  "population": 1000,
-  "crossingProbability": 1.0,
-  "mutationProbability": 0.001
-}

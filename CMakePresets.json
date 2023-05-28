@@ -1,0 +1,22 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "first_stage",
+            "cacheVariables": {
+                "APP_NAME": "app/first_stage"
+            }
+        },
+        {
+            "name": "second_stage",
+            "cacheVariables": {
+                "APP_NAME": "app/second_stage"
+            }
+        }
+    ]
+}
