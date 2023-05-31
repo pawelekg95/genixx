@@ -7,12 +7,85 @@
 
 namespace genixx {
 
-Population::Population(const Parameters& parameters)
-    : m_parameters(parameters)
+Population::Population(float crossingProbability)
+    : m_crossingProbability(crossingProbability)
 {}
 
-void Population::nextGeneration()
-{}
+Population Population::nextGeneration(const selection::SelectionMethod& selectionMethod) const
+{
+    if (m_individuals.empty())
+    {
+        throw WrongSizeException();
+    }
+    std::vector<Individual> individuals;
+    std::vector<double> scores(m_individuals.size());
+    for (std::uint32_t i = 0; i < m_individuals.size(); i++)
+    {
+        individuals.emplace_back(m_individuals[i].individual.copy());
+        scores[i] = m_individuals[i].score;
+    }
+
+    auto selectedIndividuals = selectionMethod(individuals, scores);
+    if (selectedIndividuals.size() > m_individuals.size())
+    {
+        throw WrongSizeException();
+    }
+
+    Population token;
+    token.populate(selectedIndividuals);
+
+    // Random pairs draw
+    std::uint32_t pairsCount = token.size() / 2;
+    std::vector<std::uint32_t> randomPairs(pairsCount);
+    for (auto& pair : randomPairs)
+    {
+        pair = random(0, 100);
+    }
+
+    std::uint32_t current{};
+    std::uint32_t next{current + 1};
+    for (std::uint32_t i = 0; i < pairsCount; i++)
+    {
+        if (randomPairs[i] < m_crossingProbability * 100)
+        {
+            auto currentIndividual = token.m_individuals[current].individual;
+            auto nextIndividual = token.m_individuals[next].individual;
+
+            token.m_individuals[current].individual = currentIndividual.cross(nextIndividual);
+            token.m_individuals[next].individual = nextIndividual.cross(currentIndividual);
+        }
+        current += 2;
+        next += 2;
+    }
+
+    token.generationReplacement();
+
+    std::int32_t i = token.size() - 1;
+    while (token.size() < m_individuals.size())
+    {
+        token.populate(token.m_individuals[i].individual.breed());
+        if (i > 0)
+        {
+            i--;
+        }
+        else
+        {
+            i = token.size() - 1;
+        }
+    }
+
+    token.m_currentGeneration = m_currentGeneration + 1;
+
+    return token;
+}
+
+void Population::generationReplacement()
+{
+    for (auto& [individual, _] : m_individuals)
+    {
+        individual = individual.breed();
+    }
+}
 
 void Population::populate(const Individual& individual)
 {
@@ -27,7 +100,7 @@ void Population::populate(const std::vector<Individual>& individuals)
     }
 }
 
-void Population::assessPopulation(std::function<double(const Individual& individual)>& assessmentFunction)
+void Population::assessPopulation(const std::function<double(Individual& individual)>& assessmentFunction)
 {
     if (!assessmentFunction)
     {
@@ -40,7 +113,7 @@ void Population::assessPopulation(std::function<double(const Individual& individ
     }
 }
 
-double Population::avarageScore() const
+double Population::averageScore() const
 {
     return std::accumulate(
                m_individuals.begin(),

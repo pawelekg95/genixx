@@ -1,26 +1,19 @@
 #pragma once
 
 #include "population/Individual.h"
+#include "population/selection/method.h"
 
 #include <cstdint>
-#include <functional>
 #include <vector>
 
 namespace genixx {
 
-struct Parameters
-{
-    double crossingProbability{};
-};
-
-const Parameters cDefaults = {1.0};
-
 class Population
 {
 public:
-    Population();
+    Population() = default;
 
-    explicit Population(const Parameters& parameters);
+    explicit Population(float crossingProbability);
 
     void populate(const Individual& individual);
 
@@ -30,15 +23,20 @@ public:
 
     std::uint32_t population() const { return m_individuals.size(); }
 
-    void nextGeneration();
+    Population nextGeneration(const selection::SelectionMethod& selectionMethod) const;
 
-    void assessPopulation(std::function<double(const Individual& individual)>& assessmentFunction);
+    void assessPopulation(const std::function<double(Individual& individual)>& assessmentFunction);
 
-    double avarageScore() const;
+    double averageScore() const;
 
     double bestScore() const;
 
     Individual bestIndividual() const;
+
+    std::uint32_t size() const { return m_individuals.size(); }
+
+private:
+    void generationReplacement();
 
 private:
     struct IndividualInfo
@@ -47,9 +45,9 @@ private:
         double score{};
     };
 
-    Parameters m_parameters{cDefaults};
     std::vector<IndividualInfo> m_individuals;
-    std::uint32_t m_currentGeneration{};
+    std::uint32_t m_currentGeneration{1};
+    float m_crossingProbability{1.0};
 };
 
 } // namespace genixx

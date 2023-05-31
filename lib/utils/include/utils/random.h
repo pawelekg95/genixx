@@ -5,8 +5,6 @@
 
 namespace genixx {
 
-const auto pi = 3.14159265359;
-
 template <typename Type1, typename Type2>
 std::uint32_t random(Type1 begin, Type2 end)
 {
@@ -16,4 +14,4 @@ std::uint32_t random(Type1 begin, Type2 end)
     return distr(gen);
 }
 
-}
+} // namespace genixx

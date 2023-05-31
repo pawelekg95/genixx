@@ -1,2 +1,2 @@
-# Genetic-Algorithm
+# genixx
 Project for AI classes

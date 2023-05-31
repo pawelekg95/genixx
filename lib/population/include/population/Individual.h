@@ -5,29 +5,38 @@
 #include <cstdint>
 #include <functional>
 #include <memory>
+#include <map>
 #include <vector>
+#include <utility>
+#include <string>
 
 namespace genixx {
 
-using Chromosomes = std::vector<std::shared_ptr<IChromosome>>;
+using Chromosomes = std::map<std::string, std::shared_ptr<IChromosome>>;
 using CrossingStrategy = std::function<Chromosomes(const Chromosomes&, const Chromosomes&)>;
 
 class Individual
 {
 public:
-    explicit Individual(std::uint32_t size)
-        : m_chromosomes(size)
-    {}
-
     explicit Individual(const Chromosomes& chromosomes)
         : m_chromosomes(chromosomes)
     {}
 
-    void setCrossingStrategy(CrossingStrategy crossingStrategy) { m_crossingStrategy = crossingStrategy; }
+    Individual(const Individual& other);
 
-    std::shared_ptr<IChromosome> chromosome(std::uint32_t index) { return m_chromosomes[index]; }
+    Individual(Individual&& other) noexcept;
 
-    Individual breed();
+    Individual& operator=(const Individual& other);
+
+    Individual& operator=(Individual&& other) noexcept;
+
+    void setCrossingStrategy(CrossingStrategy crossingStrategy) { m_crossingStrategy = std::move(crossingStrategy); }
+
+    std::shared_ptr<IChromosome> chromosome(const std::string& id) { return m_chromosomes[id]; }
+
+    Individual copy() const;
+
+    Individual breed() const;
 
     Individual cross(const Individual& other);
 
@@ -41,8 +50,8 @@ public:
 
 private:
     Chromosomes m_chromosomes;
-    static inline float m_mutationProbability{0.001};
     CrossingStrategy m_crossingStrategy;
+    static inline float m_mutationProbability{0.001};
 };
 
 } // namespace genixx
