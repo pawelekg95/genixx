@@ -23,7 +23,7 @@ public:
 
     std::uint32_t population() const { return m_individuals.size(); }
 
-    Population nextGeneration(const selection::SelectionMethod& selectionMethod) const;
+    Population nextGeneration(const selection::SelectionMethod& selectionMethod = selection::roulette) const;
 
     void assessPopulation(const std::function<double(Individual& individual)>& assessmentFunction);
 

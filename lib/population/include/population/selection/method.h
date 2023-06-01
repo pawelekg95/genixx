@@ -10,7 +10,8 @@ namespace genixx::selection {
 
 using SelectionMethod = std::function<std::vector<Individual>(std::vector<Individual>, std::vector<double>)>;
 
-static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation, std::vector<double> scores) -> std::vector<Individual> {
+static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation,
+                                           std::vector<double> scores) -> std::vector<Individual> {
     auto populationSize = oldPopulation.size();
     std::vector<Individual> newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
@@ -30,16 +31,42 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
         rouletteWheel[i] = position;
     }
 
-    for (std::uint32_t i = 0; i < populationSize / 2; i++)
+    for (std::uint32_t i = 0; i < populationSize; i++)
     {
         std::uint32_t j{};
-        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size());
+        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size())
+            ;
         if (j >= oldPopulation.size())
         {
             continue;
         }
         newGeneration.emplace_back(oldPopulation[j].copy());
     }
+    return newGeneration;
+};
+
+static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
+                                          std::vector<double> scores) -> std::vector<Individual> {
+    auto populationSize = oldPopulation.size() * 2;
+    std::vector<Individual> newGeneration;
+    double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
+    double copiesPerScore = static_cast<double>(populationSize) / scoreSum;
+
+    while (newGeneration.size() < oldPopulation.size())
+    {
+        std::uint32_t i = std::max_element(scores.begin(), scores.end()) - scores.begin();
+        auto copiesToPopulate = std::floor(scores[i] * copiesPerScore);
+        for (std::uint32_t j = 0; j < copiesToPopulate; j++)
+        {
+            if (newGeneration.size() >= oldPopulation.size())
+            {
+                break;
+            }
+            newGeneration.emplace_back(oldPopulation[i].copy());
+        }
+        scores[i] = 0;
+    }
+
     return newGeneration;
 };
 

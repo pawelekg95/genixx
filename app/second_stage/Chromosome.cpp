@@ -1,4 +1,5 @@
 #include "Chromosome.h"
+
 #include "utils/random.h"
 
 #include <cmath>

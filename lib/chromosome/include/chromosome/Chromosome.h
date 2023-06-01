@@ -12,13 +12,15 @@ namespace genixx {
 class IChromosome
 {
 public:
-    ~IChromosome() = default;
+    virtual ~IChromosome() = default;
 
     virtual void mutate() = 0;
 
     virtual std::uint32_t genes() = 0;
 
     virtual std::shared_ptr<IChromosome> copy() = 0;
+
+    virtual void cross(std::shared_ptr<IChromosome> other) = 0;
 };
 
 template <typename Gene, typename Phenotype>
@@ -35,9 +37,9 @@ public:
 
     virtual Phenotype phenotype() = 0;
 
-    virtual void cross(const Chromosome<Gene, Phenotype>& other)
+    void cross(std::shared_ptr<IChromosome> other) override
     {
-        auto otherGenes = other.m_genes;
+        auto otherGenes = dynamic_cast<Chromosome<Gene, Phenotype>*>(other.get())->m_genes;
         if (m_genes.size() != otherGenes.size())
         {
             throw genixx::WrongSizeException();

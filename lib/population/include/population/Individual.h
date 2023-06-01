@@ -4,16 +4,15 @@
 
 #include <cstdint>
 #include <functional>
-#include <memory>
 #include <map>
-#include <vector>
-#include <utility>
+#include <memory>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace genixx {
 
 using Chromosomes = std::map<std::string, std::shared_ptr<IChromosome>>;
-using CrossingStrategy = std::function<Chromosomes(const Chromosomes&, const Chromosomes&)>;
 
 class Individual
 {
@@ -30,7 +29,7 @@ public:
 
     Individual& operator=(Individual&& other) noexcept;
 
-    void setCrossingStrategy(CrossingStrategy crossingStrategy) { m_crossingStrategy = std::move(crossingStrategy); }
+    ~Individual() = default;
 
     std::shared_ptr<IChromosome> chromosome(const std::string& id) { return m_chromosomes[id]; }
 
@@ -50,7 +49,6 @@ public:
 
 private:
     Chromosomes m_chromosomes;
-    CrossingStrategy m_crossingStrategy;
     static inline float m_mutationProbability{0.001};
 };
 

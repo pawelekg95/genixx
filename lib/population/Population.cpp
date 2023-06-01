@@ -28,7 +28,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
     auto selectedIndividuals = selectionMethod(individuals, scores);
     if (selectedIndividuals.size() > m_individuals.size())
     {
-        throw WrongSizeException();
+        throw WrongSizeException("More selected individuals than in population");
     }
 
     Population token;
@@ -104,7 +104,7 @@ void Population::assessPopulation(const std::function<double(Individual& individ
 {
     if (!assessmentFunction)
     {
-        throw NullFunctionException();
+        throw NullFunctionException("Assessment function missing");
     }
 
     for (auto& individual : m_individuals)

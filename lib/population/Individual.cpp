@@ -14,7 +14,6 @@ Individual::Individual(const Individual& other)
 
 Individual::Individual(Individual&& other) noexcept
     : m_chromosomes(std::move(other.m_chromosomes))
-    , m_crossingStrategy(std::move(other.m_crossingStrategy))
 {}
 
 Individual& Individual::operator=(const Individual& other)
@@ -34,7 +33,6 @@ Individual& Individual::operator=(Individual&& other) noexcept
         return *this;
     }
     m_chromosomes = std::move(other.m_chromosomes);
-    m_crossingStrategy = std::move(other.m_crossingStrategy);
     return *this;
 }
 
@@ -54,12 +52,18 @@ Individual Individual::breed() const
 
 Individual Individual::cross(const Individual& other)
 {
-    if (!m_crossingStrategy)
+    if (m_chromosomes.size() != other.m_chromosomes.size())
     {
-        throw NullFunctionException();
+        throw WrongSizeException("Incorrect amount of chromosomes in individuals");
     }
-    Individual ret(m_crossingStrategy(m_chromosomes, other.m_chromosomes));
-    ret.setCrossingStrategy(m_crossingStrategy);
+    auto newChromosomes = Chromosomes();
+    for (auto& [id, chromosome] : m_chromosomes)
+    {
+        auto newChromosome = chromosome->copy();
+        newChromosome->cross(other.m_chromosomes.at(id));
+        newChromosomes[id] = newChromosome;
+    }
+    Individual ret(newChromosomes);
     return ret;
 }
 
@@ -71,7 +75,6 @@ Individual Individual::copy() const
         chromosomes[id] = chromosome->copy();
     }
     Individual ret(chromosomes);
-    ret.setCrossingStrategy(m_crossingStrategy);
     return ret;
 }
 
