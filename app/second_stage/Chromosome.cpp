@@ -1,6 +1,6 @@
 #include "Chromosome.h"
 
-#include "utils/random.h"
+#include "genixx/utils/random.h"
 
 #include <cmath>
 

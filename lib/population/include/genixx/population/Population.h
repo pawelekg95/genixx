@@ -1,7 +1,7 @@
 #pragma once
 
-#include "population/Individual.h"
-#include "population/selection/method.h"
+#include "genixx/population/Individual.h"
+#include "genixx/population/selection/method.h"
 
 #include <cstdint>
 #include <vector>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "chromosome/Chromosome.h"
+#include "genixx/chromosome/Chromosome.h"
 
 #include <cstdint>
 #include <functional>

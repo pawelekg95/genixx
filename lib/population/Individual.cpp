@@ -1,7 +1,7 @@
-#include "population/Individual.h"
+#include "genixx/population/Individual.h"
 
-#include "error/exceptions.h"
-#include "utils/random.h"
+#include "genixx/error/exceptions.h"
+#include "genixx/utils/random.h"
 
 #include <utility>
 

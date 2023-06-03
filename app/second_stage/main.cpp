@@ -1,7 +1,7 @@
 #include "Chromosome.h"
-#include "population/Individual.h"
-#include "population/Population.h"
-#include "population/selection/method.h"
+#include "genixx/population/Individual.h"
+#include "genixx/population/Population.h"
+#include "genixx/population/selection/method.h"
 
 #include <fmt/core.h>
 

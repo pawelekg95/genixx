@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/random.h"
+#include "genixx/utils/random.h"
 
 #include <algorithm>
 #include <functional>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "error/exceptions.h"
-#include "utils/random.h"
+#include "genixx/error/exceptions.h"
+#include "genixx/utils/random.h"
 
 #include <cstdint>
 #include <memory>

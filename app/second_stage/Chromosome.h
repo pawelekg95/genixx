@@ -2,8 +2,8 @@
 
 #define _USE_MATH_DEFINES
 
-#include "chromosome/Chromosome.h"
-#include "population/Individual.h"
+#include "genixx/chromosome/Chromosome.h"
+#include "genixx/population/Individual.h"
 
 #include <cmath>
 #include <iostream>

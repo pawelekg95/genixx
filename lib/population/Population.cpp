@@ -1,6 +1,6 @@
-#include "population/Population.h"
+#include "genixx/population/Population.h"
 
-#include "error/exceptions.h"
+#include "genixx/error/exceptions.h"
 
 #include <algorithm>
 #include <numeric>
