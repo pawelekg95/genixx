@@ -13,8 +13,8 @@
 
 static const std::uint32_t cGenerations = 100;
 static const std::uint32_t cPopulationCount = 1000;
-static const float cCrossingProbability = 1.0;
-static const float cMutationProbability = 0.01;
+static const float cCrossingProbability = 0.75;
+static const float cMutationProbability = 0.005;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {

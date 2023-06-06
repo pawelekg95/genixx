@@ -51,8 +51,9 @@ static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
     std::vector<Individual> newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
     double copiesPerScore = static_cast<double>(populationSize) / scoreSum;
+    int maxSpins = oldPopulation.size();
 
-    while (newGeneration.size() < oldPopulation.size())
+    while (newGeneration.size() < oldPopulation.size() && maxSpins > 0)
     {
         std::uint32_t i = std::max_element(scores.begin(), scores.end()) - scores.begin();
         auto copiesToPopulate = std::floor(scores[i] * copiesPerScore);
@@ -65,6 +66,7 @@ static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
             newGeneration.emplace_back(oldPopulation[i].copy());
         }
         scores[i] = 0;
+        maxSpins--;
     }
 
     return newGeneration;
