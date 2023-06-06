@@ -26,13 +26,20 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
     }
 
     auto selectedIndividuals = selectionMethod(individuals, scores);
-    if (selectedIndividuals.size() > m_individuals.size() || selectedIndividuals.empty())
+    if (selectedIndividuals.size() > m_individuals.size())
     {
         throw WrongSizeException("More selected individuals than in population");
     }
 
     Population token;
-    token.populate(selectedIndividuals);
+    token.populate(!selectedIndividuals.empty() ? selectedIndividuals : [this]() -> std::vector<Individual> {
+        std::vector<Individual> token;
+        for (const auto& individual : m_individuals)
+        {
+            token.emplace_back(individual.individual);
+        }
+        return token;
+    }());
 
     // Random pairs draw
     std::uint32_t pairsCount = token.size() / 2;
