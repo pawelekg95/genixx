@@ -26,7 +26,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
     }
 
     auto selectedIndividuals = selectionMethod(individuals, scores);
-    if (selectedIndividuals.size() > m_individuals.size())
+    if (selectedIndividuals.size() > m_individuals.size() || selectedIndividuals.empty())
     {
         throw WrongSizeException("More selected individuals than in population");
     }
