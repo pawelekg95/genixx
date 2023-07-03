@@ -3,9 +3,32 @@
 #include "genixx/error/exceptions.h"
 
 #include <algorithm>
+#include <chrono>
+#include <mutex>
 #include <numeric>
+#include <thread>
+
+namespace {
+
+std::uint8_t threadsToAssess{1};
+
+} // namespace
 
 namespace genixx {
+namespace config {
+
+std::uint8_t assessmentThreads()
+{
+    return threadsToAssess;
+}
+
+std::uint8_t assessmentThreads(std::uint8_t threads)
+{
+    threadsToAssess = threads;
+    return assessmentThreads();
+}
+
+} // namespace config
 
 Population::Population(float crossingProbability)
     : m_crossingProbability(crossingProbability)
@@ -114,9 +137,33 @@ void Population::assessPopulation(const std::function<double(Individual& individ
         throw NullFunctionException("Assessment function missing");
     }
 
+    using namespace std::chrono_literals;
+    std::mutex mtx{};
+    std::uint8_t threadsAvailable{config::assessmentThreads()};
+    auto assess = [&mtx, &threadsAvailable, &assessmentFunction, this](IndividualInfo& individual) {
+        individual.score = assessmentFunction(individual.individual);
+        std::lock_guard lock(mtx);
+        threadsAvailable++;
+    };
     for (auto& individual : m_individuals)
     {
-        individual.score = assessmentFunction(individual.individual);
+        bool threadAvailable{};
+        while (!threadAvailable)
+        {
+            {
+                std::lock_guard lock(mtx);
+                threadAvailable = threadsAvailable > 0;
+            }
+        }
+        {
+            std::lock_guard lock(mtx);
+            threadsAvailable--;
+            std::thread([&assess, &individual] { assess(individual); }).detach();
+        }
+    }
+    while (threadsAvailable != config::assessmentThreads())
+    {
+        std::this_thread::sleep_for(1ms);
     }
 }
 

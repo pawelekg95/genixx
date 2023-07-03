@@ -8,10 +8,11 @@
 
 namespace genixx::selection {
 
-using SelectionMethod = std::function<std::vector<Individual>(std::vector<Individual>, std::vector<double>)>;
+using Scores = std::vector<double>;
+using SelectionMethod = std::function<std::vector<Individual>(std::vector<Individual>, Scores)>;
 
 static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation,
-                                           std::vector<double> scores) -> std::vector<Individual> {
+                                           Scores scores) -> std::vector<Individual> {
     auto populationSize = oldPopulation.size();
     std::vector<Individual> newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
@@ -46,7 +47,7 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
 };
 
 static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
-                                          std::vector<double> scores) -> std::vector<Individual> {
+                                          Scores scores) -> std::vector<Individual> {
     auto populationSize = oldPopulation.size() * 2;
     std::vector<Individual> newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);

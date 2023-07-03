@@ -9,15 +9,14 @@
 #include <fstream>
 #include <iostream>
 
-// Team: G1
-
-static const std::uint32_t cGenerations = 100;
-static const std::uint32_t cPopulationCount = 1000;
+static const std::uint32_t cGenerations = 50;
+static const std::uint32_t cPopulationCount = 100;
 static const float cCrossingProbability = 0.75;
 static const float cMutationProbability = 0.005;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
+    genixx::config::assessmentThreads(10);
     genixx::Individual::mutationProbability(cMutationProbability);
     genixx::Population population(cCrossingProbability);
     for (std::uint32_t individual = 0; individual < cPopulationCount; individual++)

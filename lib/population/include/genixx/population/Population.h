@@ -7,6 +7,13 @@
 #include <vector>
 
 namespace genixx {
+namespace config {
+
+std::uint8_t assessmentThreads();
+
+std::uint8_t assessmentThreads(std::uint8_t threads);
+
+} // namespace config
 
 class Population
 {
