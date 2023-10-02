@@ -140,7 +140,7 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     using namespace std::chrono_literals;
     std::mutex mtx{};
     std::uint8_t threadsAvailable{config::assessmentThreads()};
-    auto assess = [&mtx, &threadsAvailable, &assessmentFunction, this](IndividualInfo& individual) {
+    auto assess = [&mtx, &threadsAvailable, &assessmentFunction](IndividualInfo& individual) {
         individual.score = assessmentFunction(individual.individual);
         std::lock_guard lock(mtx);
         threadsAvailable++;
