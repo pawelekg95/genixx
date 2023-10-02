@@ -35,9 +35,9 @@ jobs:
         with:
           name: ${{ inputs.artifacts_name }}
 
-      - name: Run test application under valgrind
+      - name: Run application under valgrind
         run: |
           chmod 755 ${{ inputs.app }}
           ${{ inputs.pre_run }}
-          valgrind --leak-check=full --show-leak-kinds=all --error-exitcode=123 --fair-sched=yes ${{ inputs.app }} ${{ inputs.arguments }}
+          valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --error-exitcode=123 --fair-sched=yes ${{ inputs.app }} ${{ inputs.arguments }}
           ${{ inputs.post_run }}

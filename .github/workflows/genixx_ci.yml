@@ -128,7 +128,7 @@ jobs:
     with:
       pre_run: cd "${{ github.workspace }}"
       linter: run-clang-format.py
-      arguments: -r lib example
+      arguments: -ir lib example
     secrets: inherit
 
   Clang-tidy:
