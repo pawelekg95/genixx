@@ -35,7 +35,7 @@ jobs:
           rm -rf "${BUILD_DIR}"
           mkdir "${BUILD_DIR}"
           cd "${BUILD_DIR}"
-          cmake .. --preset signal_tests_clang_debug
+          cmake .. --preset one_variable_example_gcc_debug
           make doxygen
 
       - name: Deploy documentation
