@@ -152,5 +152,5 @@ jobs:
     uses: ./.github/workflows/quality.yml
     with:
       linter: pylint
-      arguments: tools/sha256.py
+      arguments: $(find . -name *.py)
     secrets: inherit
