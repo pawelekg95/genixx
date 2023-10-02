@@ -41,6 +41,5 @@ static const std::function<double(genixx::Individual& individual)> cAssessmentFu
     auto token = 0.1 - std::sin(2 * x) - 0.2 * std::log10(std::sqrt(y));
 
     using namespace std::chrono_literals;
-    std::this_thread::sleep_for(10ms);
     return token;
 };
