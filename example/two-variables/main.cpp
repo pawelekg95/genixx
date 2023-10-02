@@ -26,7 +26,6 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         population.populate(ind);
     }
 
-    std::ofstream dataFile("data.csv"); // For chart plotting purposes
     population.assessPopulation(cAssessmentFunction);
     std::cout << fmt::format("{:<28} {:<32} {:<36} {:<40}\n",
                              "Generation",
@@ -34,14 +33,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
                              "Best score",
                              "Highest score phenotypes");
     std::cout << fmt::format(
-        "{:<28} {:<32} {:<36} {:<40}, {}\n",
-        population.generation(),
-        population.averageScore(),
-        population.bestScore(),
-        dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("x").get())->phenotype(),
-        dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("y").get())->phenotype());
-    dataFile << fmt::format(
-        "{},{},{},{},{}\n",
+        "{:<28} {:<32} {:<36} {:<40} {}\n",
         population.generation(),
         population.averageScore(),
         population.bestScore(),
@@ -53,14 +45,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         population = population.nextGeneration(genixx::selection::ranking);
         population.assessPopulation(cAssessmentFunction);
         std::cout << fmt::format(
-            "{:<28} {:<32} {:<36} {:<40}, {}\n",
-            population.generation(),
-            population.averageScore(),
-            population.bestScore(),
-            dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("x").get())->phenotype(),
-            dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("y").get())->phenotype());
-        dataFile << fmt::format(
-            "{},{},{},{},{}\n",
+            "{:<28} {:<32} {:<36} {:<40} {}\n",
             population.generation(),
             population.averageScore(),
             population.bestScore(),

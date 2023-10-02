@@ -7,15 +7,15 @@
     },
     "configurePresets": [
         {
-            "name": "first_stage",
+            "name": "one-variable",
             "cacheVariables": {
-                "APP_NAME": "app/first_stage"
+                "APP_NAME": "example/one-variable"
             }
         },
         {
-            "name": "second_stage",
+            "name": "two-variables",
             "cacheVariables": {
-                "APP_NAME": "app/second_stage"
+                "APP_NAME": "example/two-variables"
             }
         }
     ]
