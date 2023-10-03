@@ -38,7 +38,7 @@ jobs:
           cmake .. --preset one_variable_example_gcc_debug
           make doxygen
           git clone https://github.com/jothepro/doxygen-awesome-css.git
-          cp -r doxygen-awesome-css genixx-doxygen-${{ github.sha }}/docs
+          cp -r doxygen-awesome-css "${BUILD_DIR}"/docs
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4
