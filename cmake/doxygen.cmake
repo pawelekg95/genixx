@@ -25,6 +25,16 @@ function(doxygen_add_target)
         set(DOXYGEN_DOT_TRANSPARENT             YES)
         set(DOXYGEN_DOT_IMAGE_FORMAT            svg)
 
+        set(DOXYGEN_GENERATE_HTML               YES)
+        set(DOXYGEN_GENERATE_TREEVIEW           YES)
+        set(DOXYGEN_DISABLE_INDEX               NO)
+        set(DOXYGEN_FULL_SIDEBAR                NO)
+        set(DOXYGEN_HTML_EXTRA_STYLESHEET       doxygen-awesome-css/doxygen-awesome.css doxygen-awesome-css/doxygen-awesome-sidebar-only.css)
+        set(DOXYGEN_HTML_COLORSTYLE             LIGHT)
+
+        configure_file(${PROJECT_SOURCE_DIR}/tools/doxygen-awesome-css/doxygen-awesome-sidebar-only.css ${DOXYGEN_OUTPUT_DIRECTORY}/doxygen-awesome-css/doxygen-awesome-sidebar-only.css COPYONLY)
+        configure_file(${PROJECT_SOURCE_DIR}/tools/doxygen-awesome-css/doxygen-awesome.css ${DOXYGEN_OUTPUT_DIRECTORY}/doxygen-awesome-css/doxygen-awesome.css COPYONLY)
+
         # Add target to generate doxygen docs in the build directory.
         doxygen_add_docs(doxygen ${ARGN} WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
     endif ()
