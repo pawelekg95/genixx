@@ -1,4 +1,2 @@
-error: Style sheet '(' specified by HTML_EXTRA_STYLESHEET does not exist!
 error: Style sheet 'doxygen-awesome-css/doxygen-awesome.css' specified by HTML_EXTRA_STYLESHEET does not exist!
 error: Style sheet 'doxygen-awesome-css/doxygen-awesome-sidebar-only.css' specified by HTML_EXTRA_STYLESHEET does not exist!
-error: Style sheet ')' specified by HTML_EXTRA_STYLESHEET does not exist!
