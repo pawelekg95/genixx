@@ -1,2 +1,0 @@
-ar qc ../libgenixx-population.a "CMakeFiles/genixx-population.dir/Individual.cpp.o" "CMakeFiles/genixx-population.dir/Population.cpp.o"
-ranlib ../libgenixx-population.a
