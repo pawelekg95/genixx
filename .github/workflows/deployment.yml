@@ -37,6 +37,8 @@ jobs:
           cd "${BUILD_DIR}"
           cmake .. --preset one_variable_example_gcc_debug
           make doxygen
+          ls
+          ls "${BUILD_DIR}"
           git clone https://github.com/jothepro/doxygen-awesome-css.git
           cp -r doxygen-awesome-css "${BUILD_DIR}"/docs
 
