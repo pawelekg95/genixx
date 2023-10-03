@@ -1,8 +1,8 @@
 name: Build_documentation_and_deploy
-on:
-  push:
-    branches:
-      - main
+on: push
+  # push:
+  #   branches:
+  #     - main
 
 permissions:
   contents: write
@@ -37,6 +37,8 @@ jobs:
           cd "${BUILD_DIR}"
           cmake .. --preset one_variable_example_gcc_debug
           make doxygen
+          git clone https://github.com/jothepro/doxygen-awesome-css.git
+          cp -r doxygen-awesome-css genixx-doxygen-${{ github.sha }}/docs
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4
