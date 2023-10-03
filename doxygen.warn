@@ -1,2 +1,2 @@
-error: Style sheet '/__w/genixx/genixx/genixx-doxygen-8165762bbd9842161583c84780f8a41e7f6d38a3/docs/doxygen-awesome-css/doxygen-awesome.css' specified by HTML_EXTRA_STYLESHEET does not exist!
-error: Style sheet '/__w/genixx/genixx/genixx-doxygen-8165762bbd9842161583c84780f8a41e7f6d38a3/docs/doxygen-awesome-css/doxygen-awesome-sidebar-only.css' specified by HTML_EXTRA_STYLESHEET does not exist!
+error: Style sheet 'doxygen-awesome-css/doxygen-awesome.css' specified by HTML_EXTRA_STYLESHEET does not exist!
+error: Style sheet 'doxygen-awesome-css/doxygen-awesome-sidebar-only.css' specified by HTML_EXTRA_STYLESHEET does not exist!
