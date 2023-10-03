@@ -28,7 +28,7 @@ function(doxygen_add_target)
         set(DOXYGEN_GENERATE_TREEVIEW           YES)
         set(DOXYGEN_DISABLE_INDEX               NO)
         set(DOXYGEN_FULL_SIDEBAR                NO)
-        set(DOXYGEN_HTML_EXTRA_STYLESHEET       doxygen-awesome-css/doxygen-awesome.css doxygen-awesome-css/doxygen-awesome-sidebar-only.css)
+        set(DOXYGEN_HTML_EXTRA_STYLESHEET       (doxygen-awesome-css/doxygen-awesome.css doxygen-awesome-css/doxygen-awesome-sidebar-only.css))
         set(DOXYGEN_HTML_COLORSTYLE             LIGHT)
 
         # Add target to generate doxygen docs in the build directory.
