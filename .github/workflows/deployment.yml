@@ -39,6 +39,7 @@ jobs:
           make doxygen
           git clone https://github.com/jothepro/doxygen-awesome-css.git
           cp -r doxygen-awesome-css docs
+          make docs
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4
