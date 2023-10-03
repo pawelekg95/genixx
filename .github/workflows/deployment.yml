@@ -37,13 +37,6 @@ jobs:
           cd "${BUILD_DIR}"
           cmake .. --preset one_variable_example_gcc_debug
           make doxygen
-          rm -rf doxygen-awesome-css
-          result=0
-          git clone https://github.com/jothepro/doxygen-awesome-css.git || result=$?
-          if [ $result -ne 0 ]; then echo "Failed to clone"; else echo "Cloned doxygen-awesome-css"; fi
-          cp -r doxygen-awesome-css docs/
-          make docs
-          make doxygen
 
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@v4
