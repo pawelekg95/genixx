@@ -35,7 +35,7 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
     for (std::uint32_t i = 0; i < populationSize; i++)
     {
         std::uint32_t j{};
-        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size())
+        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size() - 1)
             ;
         if (j >= oldPopulation.size())
         {

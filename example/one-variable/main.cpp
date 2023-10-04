@@ -10,8 +10,8 @@
 
 // Team: G1
 
-static const std::uint32_t cGenerations = 100;
-static const std::uint32_t cPopulationCount = 1000;
+static const std::uint32_t cGenerations = 40;
+static const std::uint32_t cPopulationCount = 100;
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
