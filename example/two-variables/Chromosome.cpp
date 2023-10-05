@@ -6,7 +6,7 @@
 
 void SecondStageChromosome::mutate()
 {
-    auto mutationPlace = genixx::random(0, m_genes.size());
+    auto mutationPlace = genixx::random(0, m_genes.size() - 1);
     m_genes[mutationPlace] = (1 - static_cast<std::int8_t>(m_genes[mutationPlace])) != 0;
 }
 

@@ -1,0 +1,156 @@
+name: Genixx_CI
+on: push
+
+jobs:
+  # Environment
+  Genixx_x86_64_docker:
+    name: Genixx_x86_64_docker
+    uses: ./.github/workflows/environment.yml
+    with:
+      image: genixx
+    secrets: inherit
+
+  # Build examples stage
+  Build_one_variable_example_gcc_debug:
+    name: Build_one_variable_example_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: one_variable_example_gcc_debug
+      app: Build_one_variable_example_gcc_debug
+    secrets: inherit
+
+  Build_one_variable_example_gcc_release:
+    name: Build_one_variable_example_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: one_variable_example_gcc_release
+      app: Build_one_variable_example_gcc_release
+    secrets: inherit
+
+  Build_one_variable_example_clang_debug:
+    name: Build_one_variable_example_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: one_variable_example_clang_debug
+      app: Build_one_variable_example_clang_debug
+    secrets: inherit
+
+  Build_one_variable_example_clang_release:
+    name: Build_one_variable_example_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: one_variable_example_clang_release
+      app: Build_one_variable_example_clang_release
+    secrets: inherit
+
+  Build_two_variables_example_gcc_debug:
+    name: Build_two_variables_example_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: two_variables_example_gcc_debug
+      app: Build_two_variables_example_gcc_debug
+    secrets: inherit
+
+  Build_two_variables_example_gcc_release:
+    name: Build_two_variables_example_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: two_variables_example_gcc_release
+      app: Build_two_variables_example_gcc_release
+    secrets: inherit
+
+  Build_two_variables_example_clang_debug:
+    name: Build_two_variables_example_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: two_variables_example_clang_debug
+      app: Build_two_variables_example_clang_debug
+    secrets: inherit
+
+  Build_two_variables_example_clang_release:
+    name: Build_two_variables_example_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_example.yml
+    with:
+      preset: two_variables_example_clang_release
+      app: Build_two_variables_example_clang_release
+    secrets: inherit
+
+  # Example stage
+  One_variable_example:
+    name: One_variable_example
+    needs: Build_one_variable_example_gcc_debug
+    uses: ./.github/workflows/run_example.yml
+    with:
+      artifacts_name: Build_one_variable_example_gcc_debug-${{ github.sha }}
+      app: ./one-variable-example
+    secrets: inherit
+
+  Two_variables_example:
+    name: Two_variables_example
+    needs: Build_two_variables_example_gcc_debug
+    uses: ./.github/workflows/run_example.yml
+    with:
+      artifacts_name: Build_two_variables_example_gcc_debug-${{ github.sha }}
+      app: ./two-variables-example
+    secrets: inherit
+
+  # Valgrind example
+  One_variable_example_valgrind:
+    name: One_variable_example_valgrind
+    needs: One_variable_example
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_one_variable_example_gcc_debug-${{ github.sha }}
+      app: ./one-variable-example
+    secrets: inherit
+
+  Two_variables_example_valgrind:
+    name: Two_variables_example_valgrind
+    needs: Two_variables_example
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_two_variables_example_gcc_debug-${{ github.sha }}
+      app: ./two-variables-example
+    secrets: inherit
+
+  # Quality
+  Clang-format:
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/quality.yml
+    with:
+      pre_run: cd "${{ github.workspace }}"
+      linter: run-clang-format.py
+      arguments: -ir lib example
+    secrets: inherit
+
+  Clang-tidy:
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/quality.yml
+    with:
+      pre_run: cd "${{ github.workspace }}"; rm -rf ./cmake-build; mkdir ./cmake-build; cd ./cmake-build; cmake .. --preset one_variable_example_clang_debug
+      linter: run-clang-tidy
+    secrets: inherit
+
+  Dockerfiles-hadolint:
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/quality.yml
+    with:
+      linter: hadolint
+      arguments: .github/*.dockerfile
+    secrets: inherit
+
+  Pylint:
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/quality.yml
+    with:
+      linter: pylint
+      arguments: $(find . -name *.py)
+    secrets: inherit

@@ -7,6 +7,7 @@
     },
     "configurePresets": [
         {
+<<<<<<< HEAD
             "name": "one-variable",
             "cacheVariables": {
                 "APP_NAME": "example/one-variable"
@@ -17,6 +18,76 @@
             "cacheVariables": {
                 "APP_NAME": "example/two-variables"
             }
+=======
+          "name": "Debug",
+          "hidden": true,
+          "cacheVariables": {
+            "CMAKE_BUILD_TYPE": "Debug"
+          }
+        },
+        {
+          "name": "Release",
+          "hidden": true,
+          "cacheVariables": {
+            "CMAKE_BUILD_TYPE": "Release"
+          }
+        },
+    
+        {
+          "name": "Linux_GCC",
+          "hidden": true,
+          "cacheVariables": { "TOOLCHAIN": "gcc" }
+        },
+        {
+          "name": "Linux_Clang",
+          "hidden": true,
+          "cacheVariables": { "TOOLCHAIN": "clang" }
+        },
+        
+        {
+            "name": "one_variable",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "example/one-variable" }
+        },
+        {
+            "name": "two_variables",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "example/two-variables" }
+        },
+
+        {
+            "name": "one_variable_example_gcc_debug",
+            "inherits": [ "Debug", "one_variable", "Linux_GCC" ]
+        },
+        {
+            "name": "one_variable_example_gcc_release",
+            "inherits": [ "Release", "one_variable", "Linux_GCC" ]
+        },
+        {
+            "name": "one_variable_example_clang_debug",
+            "inherits": [ "Debug", "one_variable", "Linux_Clang" ]
+        },
+        {
+            "name": "one_variable_example_clang_release",
+            "inherits": [ "Release", "one_variable", "Linux_Clang" ]
+        },
+        
+        {
+            "name": "two_variables_example_gcc_debug",
+            "inherits": [ "Debug", "two_variables", "Linux_GCC" ]
+        },
+        {
+            "name": "two_variables_example_gcc_release",
+            "inherits": [ "Release", "two_variables", "Linux_GCC" ]
+        },
+        {
+            "name": "two_variables_example_clang_debug",
+            "inherits": [ "Debug", "two_variables", "Linux_Clang" ]
+        },
+        {
+            "name": "two_variables_example_clang_release",
+            "inherits": [ "Release", "two_variables", "Linux_Clang" ]
+>>>>>>> 33fb78e4a97e00c277e718955f620d969e0ef2bc
         }
     ]
 }
