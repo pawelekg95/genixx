@@ -5,8 +5,6 @@ Copyright (c) 2022 Pawel Gmurczyk
 Documentation:
 * [Reference](https://pawelekg95.github.io/genixx/)
 
-<<<<<<< HEAD
-=======
 # CI status
 
 | ![linux_badge] | ![ci_status] |
@@ -15,7 +13,6 @@ Documentation:
 [ci_status]: https://github.com/pawelekg95/genixx/actions/workflows/genixx_ci.yml/badge.svg
 [linux_badge]: https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black
 
->>>>>>> 33fb78e4a97e00c277e718955f620d969e0ef2bc
 # Introduction
 Easy-to-use, flexible framework to create complex genetic algorithms.
 

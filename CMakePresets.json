@@ -7,18 +7,6 @@
     },
     "configurePresets": [
         {
-<<<<<<< HEAD
-            "name": "one-variable",
-            "cacheVariables": {
-                "APP_NAME": "example/one-variable"
-            }
-        },
-        {
-            "name": "two-variables",
-            "cacheVariables": {
-                "APP_NAME": "example/two-variables"
-            }
-=======
           "name": "Debug",
           "hidden": true,
           "cacheVariables": {
@@ -87,7 +75,6 @@
         {
             "name": "two_variables_example_clang_release",
             "inherits": [ "Release", "two_variables", "Linux_Clang" ]
->>>>>>> 33fb78e4a97e00c277e718955f620d969e0ef2bc
         }
     ]
 }
