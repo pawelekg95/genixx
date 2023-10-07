@@ -1,5 +1,6 @@
 #pragma once
 
+#include "genixx/population/Individual.h"
 #include "genixx/utils/random.h"
 
 #include <algorithm>
@@ -9,12 +10,12 @@
 namespace genixx::selection {
 
 using Scores = std::vector<double>;
-using SelectionMethod = std::function<std::vector<Individual>(std::vector<Individual>, Scores)>;
+using Individuals = std::vector<Individual>;
+using SelectionMethod = std::function<Individuals(Individuals, Scores)>;
 
-static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation,
-                                           Scores scores) -> std::vector<Individual> {
+static const SelectionMethod roulette = [](Individuals oldPopulation, Scores scores) -> Individuals {
     auto populationSize = oldPopulation.size();
-    std::vector<Individual> newGeneration;
+    Individuals newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
 
     std::vector<std::uint32_t> randoms(populationSize);
@@ -46,10 +47,9 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
     return newGeneration;
 };
 
-static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
-                                          Scores scores) -> std::vector<Individual> {
+static const SelectionMethod ranking = [](Individuals oldPopulation, Scores scores) -> Individuals {
     auto populationSize = oldPopulation.size() * 2;
-    std::vector<Individual> newGeneration;
+    Individuals newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
     double copiesPerScore = static_cast<double>(populationSize) / scoreSum;
     int maxSpins = oldPopulation.size();

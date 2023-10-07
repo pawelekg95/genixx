@@ -1,4 +1,4 @@
-#include "Chromosome.h"
+#include "genixx/chromosome/NumericChromosome.h"
 #include "genixx/population/Individual.h"
 #include "genixx/population/Population.h"
 #include "genixx/population/selection/method.h"
@@ -13,6 +13,17 @@ static const std::uint32_t cGenerations = 50;
 static const std::uint32_t cPopulationCount = 100;
 static const float cCrossingProbability = 0.75;
 static const float cMutationProbability = 0.005;
+
+static const std::function<double(genixx::Individual& individual)> cAssessmentFunction =
+    [](genixx::Individual& individual) -> double {
+    auto x = dynamic_cast<SecondStageChromosome*>(individual.chromosome("x").get())->phenotype();
+    auto y = dynamic_cast<SecondStageChromosome*>(individual.chromosome("y").get())->phenotype();
+
+    auto token = 0.1 - std::sin(2 * x) - 0.2 * std::log10(std::sqrt(y));
+
+    using namespace std::chrono_literals;
+    return token;
+};
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {

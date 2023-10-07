@@ -44,6 +44,27 @@
         },
 
         {
+            "name": "individual_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/individual" }
+        },
+        {
+            "name": "chromosome_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/chromosome" }
+        },
+        {
+            "name": "selection_method_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/selection-method" }
+        },
+        {
+            "name": "utils_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/utils" }
+        },
+
+        {
             "name": "one_variable_example_gcc_debug",
             "inherits": [ "Debug", "one_variable", "Linux_GCC" ]
         },
@@ -75,6 +96,74 @@
         {
             "name": "two_variables_example_clang_release",
             "inherits": [ "Release", "two_variables", "Linux_Clang" ]
+        },
+
+        {
+            "name": "chromosome_test_gcc_debug",
+            "inherits": [ "Debug", "chromosome_test", "Linux_GCC" ]
+        },
+        {
+            "name": "chromosome_test_gcc_release",
+            "inherits": [ "Release", "chromosome_test", "Linux_GCC" ]
+        },
+        {
+            "name": "chromosome_test_clang_debug",
+            "inherits": [ "Debug", "chromosome_test", "Linux_Clang" ]
+        },
+        {
+            "name": "chromosome_test_clang_release",
+            "inherits": [ "Release", "chromosome_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "individual_test_gcc_debug",
+            "inherits": [ "Debug", "individual_test", "Linux_GCC" ]
+        },
+        {
+            "name": "individual_method_test_gcc_release",
+            "inherits": [ "Release", "individual_test", "Linux_GCC" ]
+        },
+        {
+            "name": "individual_method_test_clang_debug",
+            "inherits": [ "Debug", "individual_test", "Linux_Clang" ]
+        },
+        {
+            "name": "individual_method_test_clang_release",
+            "inherits": [ "Release", "individual_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "selection_method_test_gcc_debug",
+            "inherits": [ "Debug", "selection_method_test", "Linux_GCC" ]
+        },
+        {
+            "name": "selection_method_test_gcc_release",
+            "inherits": [ "Release", "selection_method_test", "Linux_GCC" ]
+        },
+        {
+            "name": "selection_method_test_clang_debug",
+            "inherits": [ "Debug", "selection_method_test", "Linux_Clang" ]
+        },
+        {
+            "name": "selection_method_test_clang_release",
+            "inherits": [ "Release", "selection_method_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "utils_test_gcc_debug",
+            "inherits": [ "Debug", "utils_test", "Linux_GCC" ]
+        },
+        {
+            "name": "utils_test_gcc_release",
+            "inherits": [ "Release", "utils_test", "Linux_GCC" ]
+        },
+        {
+            "name": "utils_test_clang_debug",
+            "inherits": [ "Debug", "utils_test", "Linux_Clang" ]
+        },
+        {
+            "name": "utils_test_clang_release",
+            "inherits": [ "Release", "utils_test", "Linux_Clang" ]
         }
     ]
 }
