@@ -8,14 +8,13 @@
 #include <cstdint>
 #include <iostream>
 
-// Team: G1
-
 static const std::uint32_t cGenerations = 40;
 static const std::uint32_t cPopulationCount = 100;
 
 static const std::function<double(genixx::Individual& individual)> cAssessmentFunction =
     [](genixx::Individual& individual) -> double {
     auto phenotype = static_cast<genixx::NumericChromosome<double>*>(individual.chromosome("x").get())->phenotype();
+    std::cout << phenotype << std::endl;
     return (std::exp(phenotype) * std::sin(M_PI * phenotype) + 1.0) / phenotype;
 };
 

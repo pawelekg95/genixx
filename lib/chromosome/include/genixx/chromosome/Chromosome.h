@@ -50,7 +50,6 @@ public:
     std::uint32_t length() override { return m_genes.size(); }
 
 protected:
-    // Having ordinary container instead of std::bitset due to its template limitations - size cannot be variadic.
     std::vector<Gene> m_genes;
 };
 
