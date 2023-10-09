@@ -223,8 +223,8 @@ jobs:
     secrets: inherit
 
   Chromosome_test_valgrind:
-    name: Chromosome_test
-    needs: Build_chromosome_test_gcc_debug
+    name: Chromosome_test_valgrind
+    needs: Chromosome_test
     uses: ./.github/workflows/valgrind.yml
     with:
       artifacts_name: Build_chromosome_test_gcc_debug-${{ github.sha }}
