@@ -15,7 +15,7 @@ static const float cMutationProbability = 0.001;
 
 static const std::function<double(genixx::Individual& individual)> cAssessmentFunction =
     [](genixx::Individual& individual) -> double {
-    auto phenotype = static_cast<genixx::NumericChromosome<double>*>(individual.chromosome("x").get())->phenotype();
+    auto phenotype = dynamic_cast<genixx::NumericChromosome<double>*>(individual.chromosome("x").get())->phenotype();
     return (std::exp(phenotype) * std::sin(M_PI * phenotype) + 1.0) / phenotype;
 };
 
@@ -41,7 +41,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         population.generation(),
         population.averageScore(),
         population.bestScore(),
-        static_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
+        dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
             ->phenotype());
 
     for (std::uint32_t generation = 0; generation <= cGenerations; generation++)
@@ -53,7 +53,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
             population.generation(),
             population.averageScore(),
             population.bestScore(),
-            static_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
+            dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
                 ->phenotype());
     }
     return 0;

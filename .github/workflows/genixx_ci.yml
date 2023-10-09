@@ -152,7 +152,7 @@ jobs:
     needs: Genixx_x86_64_docker
     uses: ./.github/workflows/build_app.yml
     with:
-      preset: chromosome_test_release_clang
+      preset: chromosome_test_clang_release
       app: Build_chromosome_test_clang_release
     secrets: inherit
 
@@ -211,6 +211,24 @@ jobs:
     with:
       artifacts_name: Build_two_variables_example_gcc_debug-${{ github.sha }}
       app: ./two-variables-example
+    secrets: inherit
+
+  Utils_test_valgrind:
+    name: Utils_test_valgrind
+    needs: Utils_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_utils_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Chromosome_test_valgrind:
+    name: Chromosome_test
+    needs: Build_chromosome_test_gcc_debug
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_chromosome_test_gcc_debug-${{ github.sha }}
+      app: ./test
     secrets: inherit
 
   # Quality
