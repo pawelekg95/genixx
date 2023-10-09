@@ -41,7 +41,7 @@ Individual Individual::breed() const
     auto next = copy();
     for (auto& [id, chromosome] : next.m_chromosomes)
     {
-        auto shouldMutate = (random(0, 100) / 100.0) <= m_mutationProbability;
+        auto shouldMutate = (random(0.0, 100.0) / 100.0) <= m_mutationProbability;
         if (shouldMutate)
         {
             chromosome->mutate();

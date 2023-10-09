@@ -120,15 +120,15 @@
             "inherits": [ "Debug", "individual_test", "Linux_GCC" ]
         },
         {
-            "name": "individual_method_test_gcc_release",
+            "name": "individual_test_gcc_release",
             "inherits": [ "Release", "individual_test", "Linux_GCC" ]
         },
         {
-            "name": "individual_method_test_clang_debug",
+            "name": "individual_test_clang_debug",
             "inherits": [ "Debug", "individual_test", "Linux_Clang" ]
         },
         {
-            "name": "individual_method_test_clang_release",
+            "name": "individual_test_clang_release",
             "inherits": [ "Release", "individual_test", "Linux_Clang" ]
         },
 

@@ -16,7 +16,7 @@ public:
 
     virtual void mutate() = 0;
 
-    virtual std::uint32_t length() = 0;
+    virtual std::size_t length() = 0;
 
     virtual std::shared_ptr<IChromosome> copy() = 0;
 
@@ -30,8 +30,6 @@ public:
     explicit Chromosome(const std::vector<Gene>& genes)
         : m_genes(genes)
     {}
-
-    virtual Phenotype phenotype() = 0;
 
     void cross(std::shared_ptr<IChromosome> other) override
     {
@@ -47,7 +45,9 @@ public:
         }
     }
 
-    std::uint32_t length() override { return m_genes.size(); }
+    virtual Phenotype phenotype() = 0;
+
+    std::size_t length() override { return m_genes.size(); }
 
 protected:
     std::vector<Gene> m_genes;
