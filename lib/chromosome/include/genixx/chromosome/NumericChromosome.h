@@ -3,6 +3,7 @@
 #include "genixx/chromosome/Chromosome.h"
 #include "genixx/utils/random.h"
 
+#include <cassert>
 #include <cstdint>
 #include <limits>
 #include <type_traits>
@@ -57,6 +58,29 @@ public:
         }
         return std::make_shared<NumericChromosome<Numeric>>(genes, min, max);
     }
+
+    bool operator==(const IChromosome& other) const override
+    {
+        const auto& otherRef = dynamic_cast<const NumericChromosome<Numeric>&>(other);
+        if (NumericChromosome<Numeric>::m_genes.size() != otherRef.m_genes.size())
+        {
+            return false;
+        }
+        if (m_min != otherRef.m_min || m_max != otherRef.m_max)
+        {
+            return false;
+        }
+        for (std::uint32_t i = 0; i < NumericChromosome<Numeric>::m_genes.size(); i++)
+        {
+            if (NumericChromosome<Numeric>::m_genes[i] != otherRef.m_genes[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    bool operator!=(const IChromosome& other) const override { return !(*this == other); }
 
 private:
     Numeric m_min{};

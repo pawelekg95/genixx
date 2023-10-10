@@ -37,3 +37,29 @@ TEST_CASE("Expected exception")
         REQUIRE(std::strcmp(e.what(), genixx::WrongSizeException().what()) == 0);
     }
 }
+
+TEST_CASE("Comparing chromosomes")
+{
+    auto chromosome1 = genixx::NumericChromosome<double>::random(11);
+    auto chromosomeCpy1 = chromosome1->copy();
+    auto chromosomeCpy2 = chromosome1->copy();
+    auto differentSizeChromosome = genixx::NumericChromosome<double>::random(10);
+    auto differentTypeChromosome = genixx::NumericChromosome<int>::random(10);
+    chromosomeCpy2->mutate();
+    REQUIRE(*chromosome1 == *chromosomeCpy1);
+    REQUIRE(*chromosome1 != *chromosomeCpy2);
+    REQUIRE(*chromosome1 != *differentSizeChromosome);
+
+    try
+    {
+        // This should throw std::bad_cast exception
+        *chromosome1 == *differentTypeChromosome;
+
+        // We should not reach here
+        REQUIRE(false);
+    }
+    catch (std::bad_cast& e)
+    {
+        REQUIRE(true);
+    }
+}

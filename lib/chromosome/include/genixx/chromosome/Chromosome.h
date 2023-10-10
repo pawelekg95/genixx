@@ -5,6 +5,7 @@
 
 #include <cstdint>
 #include <memory>
+#include <type_traits>
 #include <vector>
 
 namespace genixx {
@@ -21,6 +22,10 @@ public:
     virtual std::shared_ptr<IChromosome> copy() = 0;
 
     virtual void cross(std::shared_ptr<IChromosome> other) = 0;
+
+    virtual bool operator==(const IChromosome& other) const = 0;
+
+    virtual bool operator!=(const IChromosome& other) const = 0;
 };
 
 template <typename Gene, typename Phenotype>

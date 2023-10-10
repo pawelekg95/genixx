@@ -3,6 +3,8 @@
 #include "genixx/error/exceptions.h"
 #include "genixx/utils/random.h"
 
+#include <fmt/core.h>
+
 #include <utility>
 
 namespace genixx {
@@ -59,12 +61,17 @@ Individual Individual::cross(const Individual& other)
     auto newChromosomes = Chromosomes();
     for (auto& [id, chromosome] : m_chromosomes)
     {
+        auto chromosomeToChross = other.m_chromosomes.find(id);
+        if (chromosomeToChross == other.m_chromosomes.end())
+        {
+            throw InvalidArgumentException(
+                fmt::format("Chromosome mismatch. Cannot find chromosome: {} in second individual", id));
+        }
         auto newChromosome = chromosome->copy();
-        newChromosome->cross(other.m_chromosomes.at(id));
+        newChromosome->cross(chromosomeToChross->second);
         newChromosomes[id] = newChromosome;
     }
-    Individual ret(newChromosomes);
-    return ret;
+    return Individual(newChromosomes);
 }
 
 Individual Individual::copy() const
@@ -74,8 +81,7 @@ Individual Individual::copy() const
     {
         chromosomes[id] = chromosome->copy();
     }
-    Individual ret(chromosomes);
-    return ret;
+    return Individual(chromosomes);
 }
 
 } // namespace genixx
