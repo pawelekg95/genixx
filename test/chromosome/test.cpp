@@ -53,7 +53,7 @@ TEST_CASE("Comparing chromosomes")
     try
     {
         // This should throw std::bad_cast exception
-        *chromosome1 == *differentTypeChromosome;
+        [[maybe_unused]] bool chromosomesEqual = *chromosome1 == *differentTypeChromosome;
 
         // We should not reach here
         REQUIRE(false);
