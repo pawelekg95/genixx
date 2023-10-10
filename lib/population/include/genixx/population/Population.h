@@ -28,7 +28,7 @@ public:
 
     std::uint32_t generation() const { return m_currentGeneration; }
 
-    std::uint32_t population() const { return m_individuals.size(); }
+    std::size_t population() const { return m_individuals.size(); }
 
     Population nextGeneration(const selection::SelectionMethod& selectionMethod = selection::roulette) const;
 
