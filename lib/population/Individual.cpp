@@ -5,7 +5,6 @@
 
 #include <fmt/core.h>
 
-#include <iostream>
 #include <utility>
 
 namespace genixx {
