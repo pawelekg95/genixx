@@ -226,7 +226,7 @@ jobs:
     with:
       preset: selection_method_test_clang_release
       app: Build_selection_method_test_clang_release
-      secrets: inherit
+    secrets: inherit
 
   # Run example
   One_variable_example:
