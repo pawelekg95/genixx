@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.14)
 include(cmake/toolchain.cmake)
 include(cmake/fmt.cmake)
 include(cmake/doxygen.cmake)
+include(cmake/Catch2.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)

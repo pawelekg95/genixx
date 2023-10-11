@@ -45,4 +45,4 @@ target_link_libraries(<your_module>
 ````
 
 # Usage
-See `example` directory for examples.
+See `example` and `test` directories for examples.

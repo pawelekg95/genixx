@@ -3,6 +3,8 @@
 #include "genixx/error/exceptions.h"
 #include "genixx/utils/random.h"
 
+#include <fmt/core.h>
+
 #include <utility>
 
 namespace genixx {
@@ -41,7 +43,7 @@ Individual Individual::breed() const
     auto next = copy();
     for (auto& [id, chromosome] : next.m_chromosomes)
     {
-        auto shouldMutate = (random(0, 100) / 100.0) <= m_mutationProbability;
+        auto shouldMutate = (random(0.0, 100.0) / 100.0) <= m_mutationProbability;
         if (shouldMutate)
         {
             chromosome->mutate();
@@ -59,12 +61,17 @@ Individual Individual::cross(const Individual& other)
     auto newChromosomes = Chromosomes();
     for (auto& [id, chromosome] : m_chromosomes)
     {
+        auto chromosomeToChross = other.m_chromosomes.find(id);
+        if (chromosomeToChross == other.m_chromosomes.end())
+        {
+            throw InvalidArgumentException(
+                fmt::format("Chromosome mismatch. Cannot find chromosome: {} in second individual", id));
+        }
         auto newChromosome = chromosome->copy();
-        newChromosome->cross(other.m_chromosomes.at(id));
+        newChromosome->cross(chromosomeToChross->second);
         newChromosomes[id] = newChromosome;
     }
-    Individual ret(newChromosomes);
-    return ret;
+    return Individual(newChromosomes);
 }
 
 Individual Individual::copy() const
@@ -74,8 +81,32 @@ Individual Individual::copy() const
     {
         chromosomes[id] = chromosome->copy();
     }
-    Individual ret(chromosomes);
-    return ret;
+    return Individual(chromosomes);
+}
+
+bool Individual::operator==(const Individual& other) const
+{
+    if (m_chromosomes.size() != other.m_chromosomes.size())
+    {
+        return false;
+    }
+    for (const auto& [id, chromosome] : m_chromosomes)
+    {
+        if (other.m_chromosomes.find(id) == other.m_chromosomes.end())
+        {
+            return false;
+        }
+        if (*chromosome != *other.m_chromosomes.at(id))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Individual::operator!=(const Individual& other) const
+{
+    return !(*this == other);
 }
 
 } // namespace genixx

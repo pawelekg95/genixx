@@ -47,6 +47,10 @@ public:
         return m_mutationProbability;
     }
 
+    bool operator==(const Individual& other) const;
+
+    bool operator!=(const Individual& other) const;
+
 private:
     Chromosomes m_chromosomes;
     static inline float m_mutationProbability{0.001};

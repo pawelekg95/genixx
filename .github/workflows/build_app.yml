@@ -1,4 +1,4 @@
-name: Build_examples
+name: Build_app
 on:
   workflow_call:
     inputs:
@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:
-  Build_examples:
+  Build_app:
     runs-on: ubuntu-20.04
     environment: docker
     env:

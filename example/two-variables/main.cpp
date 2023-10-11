@@ -1,4 +1,4 @@
-#include "Chromosome.h"
+#include "genixx/chromosome/NumericChromosome.h"
 #include "genixx/population/Individual.h"
 #include "genixx/population/Population.h"
 #include "genixx/population/selection/method.h"
@@ -10,9 +10,18 @@
 #include <iostream>
 
 static const std::uint32_t cGenerations = 50;
-static const std::uint32_t cPopulationCount = 100;
+static const std::uint32_t cPopulationCount = 1000;
 static const float cCrossingProbability = 0.75;
 static const float cMutationProbability = 0.005;
+
+static const std::function<double(genixx::Individual& individual)> cAssessmentFunction =
+    [](genixx::Individual& individual) -> double {
+    auto x = dynamic_cast<genixx::NumericChromosome<double>*>(individual.chromosome("x").get())->phenotype();
+    auto y = dynamic_cast<genixx::NumericChromosome<double>*>(individual.chromosome("y").get())->phenotype();
+
+    auto token = 0.1 - std::sin(2 * x) - 0.2 * std::log10(std::sqrt(y));
+    return token;
+};
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
@@ -21,8 +30,8 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
     genixx::Population population(cCrossingProbability);
     for (std::uint32_t individual = 0; individual < cPopulationCount; individual++)
     {
-        auto ind =
-            genixx::Individual({{"x", randomChromosome(1.0, 3.0)}, {"y", randomChromosome(0.0000000000001, 1.0)}});
+        auto ind = genixx::Individual({{"x", genixx::NumericChromosome<double>::random(11, 1.0, 3.0)},
+                                       {"y", genixx::NumericChromosome<double>::random(11, 0.0000000000001, 1.0)}});
         population.populate(ind);
     }
 
@@ -37,8 +46,10 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
         population.generation(),
         population.averageScore(),
         population.bestScore(),
-        dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("x").get())->phenotype(),
-        dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("y").get())->phenotype());
+        dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
+            ->phenotype(),
+        dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("y").get())
+            ->phenotype());
 
     for (std::uint32_t generation = 0; generation < cGenerations - 1; generation++)
     {
@@ -49,8 +60,10 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
             population.generation(),
             population.averageScore(),
             population.bestScore(),
-            dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("x").get())->phenotype(),
-            dynamic_cast<SecondStageChromosome*>(population.bestIndividual().chromosome("y").get())->phenotype());
+            dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("x").get())
+                ->phenotype(),
+            dynamic_cast<genixx::NumericChromosome<double>*>(population.bestIndividual().chromosome("y").get())
+                ->phenotype());
     }
     return 0;
 }
