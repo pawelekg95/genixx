@@ -48,26 +48,33 @@ static const SelectionMethod roulette = [](Individuals oldPopulation, Scores sco
 };
 
 static const SelectionMethod ranking = [](Individuals oldPopulation, Scores scores) -> Individuals {
-    auto populationSize = oldPopulation.size() * 2;
+    auto populationSize = 2 * oldPopulation.size();
     Individuals newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
     double copiesPerScore = static_cast<double>(populationSize) / scoreSum;
-    int maxSpins = oldPopulation.size();
 
-    while (newGeneration.size() < oldPopulation.size() && maxSpins > 0)
+    for (std::uint32_t i = 0; i < oldPopulation.size(); i++)
     {
-        std::uint32_t i = std::max_element(scores.begin(), scores.end()) - scores.begin();
-        auto copiesToPopulate = std::floor(scores[i] * copiesPerScore);
+        if (newGeneration.size() >= oldPopulation.size())
+        {
+            break;
+        }
+        auto maxElemIt = std::max_element(scores.begin(), scores.end());
+        if (maxElemIt == scores.end())
+        {
+            break;
+        }
+        auto copiesToPopulate = std::floor(*maxElemIt * copiesPerScore);
         for (std::uint32_t j = 0; j < copiesToPopulate; j++)
         {
             if (newGeneration.size() >= oldPopulation.size())
             {
                 break;
             }
-            newGeneration.emplace_back(oldPopulation[i].copy());
+            auto individualIt = maxElemIt - scores.begin();
+            newGeneration.emplace_back(oldPopulation[individualIt].copy());
         }
-        scores[i] = 0;
-        maxSpins--;
+        *maxElemIt = 0;
     }
 
     return newGeneration;

@@ -16,9 +16,9 @@ TEST_CASE("All random chromosomes phenotypes in range")
 
     for (std::uint32_t i = 0; i < cChromosomes; i++)
     {
-        chromosomes[i] = genixx::NumericChromosome<double>::random(11, 1, 100);
+        chromosomes[i] = genixx::NumericChromosome<double>::random(15, 0.125, 0.875);
         auto phenotype = dynamic_cast<genixx::NumericChromosome<double>*>(chromosomes[i].get())->phenotype();
-        REQUIRE((phenotype >= 1 && phenotype <= 100));
+        REQUIRE((phenotype >= 0.125 && phenotype <= 0.875));
     }
 }
 

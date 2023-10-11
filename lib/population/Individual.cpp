@@ -5,6 +5,7 @@
 
 #include <fmt/core.h>
 
+#include <iostream>
 #include <utility>
 
 namespace genixx {
@@ -82,6 +83,31 @@ Individual Individual::copy() const
         chromosomes[id] = chromosome->copy();
     }
     return Individual(chromosomes);
+}
+
+bool Individual::operator==(const Individual& other) const
+{
+    if (m_chromosomes.size() != other.m_chromosomes.size())
+    {
+        return false;
+    }
+    for (const auto& [id, chromosome] : m_chromosomes)
+    {
+        if (other.m_chromosomes.find(id) == other.m_chromosomes.end())
+        {
+            return false;
+        }
+        if (*chromosome != *other.m_chromosomes.at(id))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Individual::operator!=(const Individual& other) const
+{
+    return !(*this == other);
 }
 
 } // namespace genixx

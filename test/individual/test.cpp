@@ -5,6 +5,17 @@
 
 #include <cstring>
 
+TEST_CASE("Comparing individuals")
+{
+    genixx::Individual::mutationProbability(100.0);
+    genixx::Individual individual1(genixx::Chromosomes{{"x", genixx::NumericChromosome<double>::random(11)}});
+
+    REQUIRE(individual1 == individual1.copy());
+
+    // This comparison should fail. 100% mutation probability should make breeding completely vulnerable to mutation.
+    REQUIRE(individual1 != individual1.breed());
+}
+
 TEST_CASE("Expected exceptions")
 {
     genixx::Individual individual1(genixx::Chromosomes{{"x", genixx::NumericChromosome<double>::random(11)}});
@@ -26,7 +37,7 @@ TEST_CASE("Expected exceptions")
 
     try
     {
-        // Should fail. DIfferent number of chromosomes.
+        // Should fail. Different number of chromosomes.
         individual1.cross(individual3);
         REQUIRE(false);
     }
