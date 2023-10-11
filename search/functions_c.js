@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['_7eichromosome_0',['~IChromosome',['../classgenixx_1_1IChromosome.html#ae188ea5903cd7d77938ce4abfdc456e1',1,'genixx::IChromosome']]],
-  ['_7eindividual_1',['~Individual',['../classgenixx_1_1Individual.html#adf474c6e3ab6f4abb37b42caff727e39',1,'genixx::Individual']]]
+  ['what_0',['what',['../classgenixx_1_1WrongSizeException.html#a6e06677d187641da261bbef5e3476cac',1,'genixx::WrongSizeException::what()'],['../classgenixx_1_1NullFunctionException.html#aa459dc91b3a12fe718b501d0f83ecb4a',1,'genixx::NullFunctionException::what()'],['../classgenixx_1_1InvalidArgumentException.html#ae444dcaaef21298a49c32459f0f8dc6c',1,'genixx::InvalidArgumentException::what()']]],
+  ['wrongsizeexception_1',['WrongSizeException',['../classgenixx_1_1WrongSizeException.html#a98a7f47a9c5e514b62db3c624a137c9b',1,'genixx::WrongSizeException::WrongSizeException()=default'],['../classgenixx_1_1WrongSizeException.html#a403697b92420156dc31c2d462e9cf7b6',1,'genixx::WrongSizeException::WrongSizeException(const std::string &amp;comment)']]]
 ];

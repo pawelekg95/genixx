@@ -113,7 +113,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenixx_1_1Individual.html">Individual</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenixx_1_1InvalidArgumentException.html">InvalidArgumentException</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenixx_1_1NullFunctionException.html">NullFunctionException</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenixx_1_1NumericChromosome.html">NumericChromosome</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgenixx_1_1Population.html">Population</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +131,9 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab003d1850a44b80441aad72ec2853f34"><td class="memTemplParams" colspan="2">template&lt;typename Type1 , typename Type2 &gt; </td></tr>
-<tr class="memitem:ab003d1850a44b80441aad72ec2853f34"><td class="memTemplItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegenixx.html#ab003d1850a44b80441aad72ec2853f34">random</a> (Type1 begin, Type2 end)</td></tr>
-<tr class="separator:ab003d1850a44b80441aad72ec2853f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memTemplParams" colspan="2">template&lt;typename Type1 , typename Type2 , typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type1&gt;&gt;, typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memTemplItemLeft" align="right" valign="top">NumberTrait&lt; Type1, Type2 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegenixx.html#a5fa472c5da2de4d9886ec4bf4fb0555c">random</a> (Type1 begin, Type2 end)</td></tr>
+<tr class="separator:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="a3f5607885390b4f84387028c4f25670c" name="a3f5607885390b4f84387028c4f25670c"></a>
@@ -147,16 +151,16 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ab003d1850a44b80441aad72ec2853f34" name="ab003d1850a44b80441aad72ec2853f34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab003d1850a44b80441aad72ec2853f34">&#9670;&#160;</a></span>random()</h2>
+<a id="a5fa472c5da2de4d9886ec4bf4fb0555c" name="a5fa472c5da2de4d9886ec4bf4fb0555c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fa472c5da2de4d9886ec4bf4fb0555c">&#9670;&#160;</a></span>random()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Type1 , typename Type2 &gt; </div>
+template&lt;typename Type1 , typename Type2 , typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type1&gt;&gt;, typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type2&gt;&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t genixx::random </td>
+          <td class="memname">NumberTrait&lt; Type1, Type2 &gt;::type genixx::random </td>
           <td>(</td>
           <td class="paramtype">Type1&#160;</td>
           <td class="paramname"><em>begin</em>, </td>

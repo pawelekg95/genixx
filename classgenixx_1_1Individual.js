@@ -10,8 +10,10 @@ var classgenixx_1_1Individual =
     [ "cross", "classgenixx_1_1Individual.html#a6d1fcdc7e538d83f00405b5388df2f6d", null ],
     [ "mutationProbability", "classgenixx_1_1Individual.html#ad15a33330ada5ec4a171c291bec94e86", null ],
     [ "mutationProbability", "classgenixx_1_1Individual.html#a42f0000bcf091af62c02ec925d35f001", null ],
+    [ "operator!=", "classgenixx_1_1Individual.html#ae2445d4c4a5275233ecfba4d8961f67b", null ],
     [ "operator=", "classgenixx_1_1Individual.html#ad93db5e6fb6bfd7e27cdf1c0bd3fe03a", null ],
     [ "operator=", "classgenixx_1_1Individual.html#a4ea3e60e10193b5edc5df008033feb87", null ],
+    [ "operator==", "classgenixx_1_1Individual.html#aeb3b054fe3a8c535f669a829344d1048", null ],
     [ "m_chromosomes", "classgenixx_1_1Individual.html#a200cda961d2d0aa0b6b13e27566230a1", null ],
     [ "m_mutationProbability", "classgenixx_1_1Individual.html#a7a0f629b5443c32f6fda94f3f28843e7", null ]
 ];

@@ -95,18 +95,22 @@ $(document).ready(function(){initNavTree('random_8h.html',''); initResizable(); 
   <div class="headertitle"><div class="title">random.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="exceptions_8h_source.html">genixx/error/exceptions.h</a>&quot;</code><br />
+<code>#include &lt;fmt/core.h&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;random&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for random.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="random_8h__incl.svg" width="180" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8h__incl.svg" width="703" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="random_8h__dep__incl.svg" width="532" height="403"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="random_8h__dep__incl.svg" width="739" height="491"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 </div>
@@ -119,9 +123,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab003d1850a44b80441aad72ec2853f34"><td class="memTemplParams" colspan="2">template&lt;typename Type1 , typename Type2 &gt; </td></tr>
-<tr class="memitem:ab003d1850a44b80441aad72ec2853f34"><td class="memTemplItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegenixx.html#ab003d1850a44b80441aad72ec2853f34">genixx::random</a> (Type1 begin, Type2 end)</td></tr>
-<tr class="separator:ab003d1850a44b80441aad72ec2853f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memTemplParams" colspan="2">template&lt;typename Type1 , typename Type2 , typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type1&gt;&gt;, typename  = std::enable_if_t&lt;std::is_arithmetic_v&lt;Type2&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memTemplItemLeft" align="right" valign="top">NumberTrait&lt; Type1, Type2 &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacegenixx.html#a5fa472c5da2de4d9886ec4bf4fb0555c">genixx::random</a> (Type1 begin, Type2 end)</td></tr>
+<tr class="separator:a5fa472c5da2de4d9886ec4bf4fb0555c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

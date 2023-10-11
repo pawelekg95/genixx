@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['phenotype_0',['phenotype',['../classgenixx_1_1Chromosome.html#a95d4f4154c6ce7ea59b3b1a793ea207a',1,'genixx::Chromosome']]],
-  ['populate_1',['populate',['../classgenixx_1_1Population.html#add34368a6b003d92ceba8e9a1bac2def',1,'genixx::Population::populate(const Individual &amp;individual)'],['../classgenixx_1_1Population.html#a538b010b879055f1f99976bc5ff4f109',1,'genixx::Population::populate(const std::vector&lt; Individual &gt; &amp;individuals)']]],
-  ['population_2',['population',['../classgenixx_1_1Population.html#a7d5f0f5a1077c508dc8b167eac448d64',1,'genixx::Population']]],
-  ['population_3',['Population',['../classgenixx_1_1Population.html#ad33c609fbbde73f1b0b50449a69593d6',1,'genixx::Population::Population()=default'],['../classgenixx_1_1Population.html#a876c1486c228ed1d72a40b955fa050a0',1,'genixx::Population::Population(float crossingProbability)']]]
+  ['operator_21_3d_0',['operator!=',['../classgenixx_1_1IChromosome.html#adfda789991735ae5d8e72f41beac0ac6',1,'genixx::IChromosome::operator!=()'],['../classgenixx_1_1NumericChromosome.html#a2aafa0911f42b65f90cac91f1ebed77e',1,'genixx::NumericChromosome::operator!=()'],['../classgenixx_1_1Individual.html#ae2445d4c4a5275233ecfba4d8961f67b',1,'genixx::Individual::operator!=(const Individual &amp;other) const']]],
+  ['operator_3d_1',['operator=',['../classgenixx_1_1Individual.html#ad93db5e6fb6bfd7e27cdf1c0bd3fe03a',1,'genixx::Individual::operator=(const Individual &amp;other)'],['../classgenixx_1_1Individual.html#a4ea3e60e10193b5edc5df008033feb87',1,'genixx::Individual::operator=(Individual &amp;&amp;other) noexcept']]],
+  ['operator_3d_3d_2',['operator==',['../classgenixx_1_1IChromosome.html#adf20eb8739ff44592bb781bcb92ffbe1',1,'genixx::IChromosome::operator==()'],['../classgenixx_1_1NumericChromosome.html#ad603a8d1b295fcfdb7f173277f35d642',1,'genixx::NumericChromosome::operator==()'],['../classgenixx_1_1Individual.html#aeb3b054fe3a8c535f669a829344d1048',1,'genixx::Individual::operator==()']]]
 ];

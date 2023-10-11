@@ -1,9 +1,10 @@
 <map id="lib/utils/include/genixx/utils/random.h" name="lib/utils/include/genixx/utils/random.h">
-<area shape="rect" id="node1" title=" " alt="" coords="121,5,291,45"/>
-<area shape="rect" id="node2" href="$Chromosome_8h.html" title=" " alt="" coords="75,93,337,133"/>
-<area shape="rect" id="node4" href="$Individual_8cpp.html" title=" " alt="" coords="5,291,212,317"/>
-<area shape="rect" id="node7" href="$method_8h.html" title=" " alt="" coords="320,181,527,236"/>
-<area shape="rect" id="node3" href="$Individual_8h.html" title=" " alt="" coords="73,189,296,229"/>
-<area shape="rect" id="node5" href="$Population_8h.html" title=" " alt="" coords="272,284,500,324"/>
-<area shape="rect" id="node6" href="$Population_8cpp.html" title=" " alt="" coords="281,372,491,397"/>
+<area shape="rect" id="node1" title=" " alt="" coords="191,5,360,45"/>
+<area shape="rect" id="node2" href="$Chromosome_8h.html" title=" " alt="" coords="230,93,492,133"/>
+<area shape="rect" id="node3" href="$NumericChromosome_8h.html" title=" " alt="" coords="33,181,350,221"/>
+<area shape="rect" id="node5" href="$Individual_8cpp.html" title=" " alt="" coords="527,284,734,309"/>
+<area shape="rect" id="node8" href="$method_8h.html" title=" " alt="" coords="242,269,448,324"/>
+<area shape="rect" id="node4" href="$Individual_8h.html" title=" " alt="" coords="375,181,598,221"/>
+<area shape="rect" id="node6" href="$Population_8h.html" title=" " alt="" coords="302,372,530,412"/>
+<area shape="rect" id="node7" href="$Population_8cpp.html" title=" " alt="" coords="310,460,521,485"/>
 </map>

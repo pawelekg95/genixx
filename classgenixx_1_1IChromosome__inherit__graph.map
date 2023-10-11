@@ -1,4 +1,6 @@
 <map id="genixx::IChromosome" name="genixx::IChromosome">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,179,119"/>
-<area shape="rect" id="node2" href="$classgenixx_1_1Chromosome.html" title=" " alt="" coords="7,167,177,309"/>
+<area shape="rect" id="node1" title=" " alt="" coords="25,5,199,148"/>
+<area shape="rect" id="node2" href="$classgenixx_1_1Chromosome.html" title=" " alt="" coords="33,388,202,516"/>
+<area shape="rect" id="node4" href="$classgenixx_1_1Chromosome.html" title=" " alt="" coords="134,197,303,325"/>
+<area shape="rect" id="node3" href="$classgenixx_1_1NumericChromosome.html" title=" " alt="" coords="5,565,229,752"/>
 </map>

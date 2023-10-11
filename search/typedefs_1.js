@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['scores_0',['Scores',['../namespacegenixx_1_1selection.html#ad98bed0ca3623e0514572b686bc312be',1,'genixx::selection']]],
-  ['selectionmethod_1',['SelectionMethod',['../namespacegenixx_1_1selection.html#ae1c10645ace4e240ddcdec4456b2c7ab',1,'genixx::selection']]]
+  ['individuals_0',['Individuals',['../namespacegenixx_1_1selection.html#a606c1c1bee90656a5e427071e9d3adda',1,'genixx::selection']]]
 ];
