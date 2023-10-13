@@ -1,5 +1,6 @@
 #pragma once
 
+#include "genixx/population/Individual.h"
 #include "genixx/utils/random.h"
 
 #include <algorithm>
@@ -9,12 +10,12 @@
 namespace genixx::selection {
 
 using Scores = std::vector<double>;
-using SelectionMethod = std::function<std::vector<Individual>(std::vector<Individual>, Scores)>;
+using Individuals = std::vector<Individual>;
+using SelectionMethod = std::function<Individuals(Individuals, Scores)>;
 
-static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation,
-                                           Scores scores) -> std::vector<Individual> {
+static const SelectionMethod roulette = [](Individuals oldPopulation, Scores scores) -> Individuals {
     auto populationSize = oldPopulation.size();
-    std::vector<Individual> newGeneration;
+    Individuals newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
 
     std::vector<std::uint32_t> randoms(populationSize);
@@ -35,7 +36,7 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
     for (std::uint32_t i = 0; i < populationSize; i++)
     {
         std::uint32_t j{};
-        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size())
+        while (randoms[i] > rouletteWheel[++j] && j < rouletteWheel.size() - 1)
             ;
         if (j >= oldPopulation.size())
         {
@@ -46,28 +47,34 @@ static const SelectionMethod roulette = [](std::vector<Individual> oldPopulation
     return newGeneration;
 };
 
-static const SelectionMethod ranking = [](std::vector<Individual> oldPopulation,
-                                          Scores scores) -> std::vector<Individual> {
-    auto populationSize = oldPopulation.size() * 2;
-    std::vector<Individual> newGeneration;
+static const SelectionMethod ranking = [](Individuals oldPopulation, Scores scores) -> Individuals {
+    auto populationSize = 2 * oldPopulation.size();
+    Individuals newGeneration;
     double scoreSum = std::accumulate(scores.begin(), scores.end(), 0.0);
     double copiesPerScore = static_cast<double>(populationSize) / scoreSum;
-    int maxSpins = oldPopulation.size();
 
-    while (newGeneration.size() < oldPopulation.size() && maxSpins > 0)
+    for (std::uint32_t i = 0; i < oldPopulation.size(); i++)
     {
-        std::uint32_t i = std::max_element(scores.begin(), scores.end()) - scores.begin();
-        auto copiesToPopulate = std::floor(scores[i] * copiesPerScore);
+        if (newGeneration.size() >= oldPopulation.size())
+        {
+            break;
+        }
+        auto maxElemIt = std::max_element(scores.begin(), scores.end());
+        if (maxElemIt == scores.end())
+        {
+            break;
+        }
+        auto copiesToPopulate = std::floor(*maxElemIt * copiesPerScore);
         for (std::uint32_t j = 0; j < copiesToPopulate; j++)
         {
             if (newGeneration.size() >= oldPopulation.size())
             {
                 break;
             }
-            newGeneration.emplace_back(oldPopulation[i].copy());
+            auto individualIt = maxElemIt - scores.begin();
+            newGeneration.emplace_back(oldPopulation[individualIt].copy());
         }
-        scores[i] = 0;
-        maxSpins--;
+        *maxElemIt = 0;
     }
 
     return newGeneration;

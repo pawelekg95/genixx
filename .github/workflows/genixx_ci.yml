@@ -2,7 +2,7 @@ name: Genixx_CI
 on: push
 
 jobs:
-  # Environment
+  # Prepare Environment
   Genixx_x86_64_docker:
     name: Genixx_x86_64_docker
     uses: ./.github/workflows/environment.yml
@@ -10,11 +10,11 @@ jobs:
       image: genixx
     secrets: inherit
 
-  # Build examples stage
+  # Build examples
   Build_one_variable_example_gcc_debug:
     name: Build_one_variable_example_gcc_debug
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: one_variable_example_gcc_debug
       app: Build_one_variable_example_gcc_debug
@@ -23,7 +23,7 @@ jobs:
   Build_one_variable_example_gcc_release:
     name: Build_one_variable_example_gcc_release
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: one_variable_example_gcc_release
       app: Build_one_variable_example_gcc_release
@@ -32,7 +32,7 @@ jobs:
   Build_one_variable_example_clang_debug:
     name: Build_one_variable_example_clang_debug
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: one_variable_example_clang_debug
       app: Build_one_variable_example_clang_debug
@@ -41,7 +41,7 @@ jobs:
   Build_one_variable_example_clang_release:
     name: Build_one_variable_example_clang_release
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: one_variable_example_clang_release
       app: Build_one_variable_example_clang_release
@@ -50,7 +50,7 @@ jobs:
   Build_two_variables_example_gcc_debug:
     name: Build_two_variables_example_gcc_debug
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: two_variables_example_gcc_debug
       app: Build_two_variables_example_gcc_debug
@@ -59,7 +59,7 @@ jobs:
   Build_two_variables_example_gcc_release:
     name: Build_two_variables_example_gcc_release
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: two_variables_example_gcc_release
       app: Build_two_variables_example_gcc_release
@@ -68,7 +68,7 @@ jobs:
   Build_two_variables_example_clang_debug:
     name: Build_two_variables_example_clang_debug
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: two_variables_example_clang_debug
       app: Build_two_variables_example_clang_debug
@@ -77,17 +77,235 @@ jobs:
   Build_two_variables_example_clang_release:
     name: Build_two_variables_example_clang_release
     needs: Genixx_x86_64_docker
-    uses: ./.github/workflows/build_example.yml
+    uses: ./.github/workflows/build_app.yml
     with:
       preset: two_variables_example_clang_release
       app: Build_two_variables_example_clang_release
     secrets: inherit
 
-  # Example stage
+  # Build tests
+  Build_utils_test_gcc_debug:
+    name: Build_utils_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: utils_test_gcc_debug
+      app: Build_utils_test_gcc_debug
+    secrets: inherit
+
+  Build_utils_test_gcc_release:
+    name: Build_utils_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: utils_test_gcc_release
+      app: Build_utils_test_gcc_release
+    secrets: inherit
+
+  Build_utils_test_clang_debug:
+    name: Build_utils_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: utils_test_clang_debug
+      app: Build_utils_test_clang_debug
+    secrets: inherit
+
+  Build_utils_test_clang_release:
+    name: Build_utils_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: utils_test_clang_release
+      app: Build_utils_test_clang_release
+    secrets: inherit
+
+  Build_chromosome_test_gcc_debug:
+    name: Build_chromosome_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: chromosome_test_gcc_debug
+      app: Build_chromosome_test_gcc_debug
+    secrets: inherit
+
+  Build_chromosome_test_gcc_release:
+    name: Build_chromosome_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: chromosome_test_gcc_release
+      app: Build_chromosome_test_gcc_release
+    secrets: inherit
+
+  Build_chromosome_test_clang_debug:
+    name: Build_chromosome_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: chromosome_test_clang_debug
+      app: Build_chromosome_test_clang_debug
+    secrets: inherit
+
+  Build_chromosome_test_clang_release:
+    name: Build_chromosome_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: chromosome_test_clang_release
+      app: Build_chromosome_test_clang_release
+    secrets: inherit
+
+  Build_individual_test_gcc_debug:
+    name: Build_individual_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: individual_test_gcc_debug
+      app: Build_individual_test_gcc_debug
+    secrets: inherit
+
+  Build_individual_test_gcc_release:
+    name: Build_individual_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: individual_test_gcc_release
+      app: Build_individual_test_gcc_release
+    secrets: inherit
+
+  Build_individual_test_clang_debug:
+    name: Build_individual_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: individual_test_clang_debug
+      app: Build_individual_test_clang_debug
+    secrets: inherit
+
+  Build_individual_test_clang_release:
+    name: Build_individual_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: individual_test_clang_release
+      app: Build_individual_test_clang_release
+    secrets: inherit
+
+  Build_selection_method_test_gcc_debug:
+    name: Build_selection_method_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: selection_method_test_gcc_debug
+      app: Build_selection_method_test_gcc_debug
+    secrets: inherit
+
+  Build_selection_method_test_gcc_release:
+    name: Build_selection_method_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: selection_method_test_gcc_release
+      app: Build_selection_method_test_gcc_release
+    secrets: inherit
+
+  Build_selection_method_test_clang_debug:
+    name: Build_selection_method_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: selection_method_test_clang_debug
+      app: Build_selection_method_test_clang_debug
+    secrets: inherit
+
+  Build_selection_method_test_clang_release:
+    name: Build_selection_method_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: selection_method_test_clang_release
+      app: Build_selection_method_test_clang_release
+    secrets: inherit
+
+  Build_two_variables_test_gcc_debug:
+    name: Build_two_variables_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug
+      app: Build_two_variables_test_gcc_debug
+    secrets: inherit
+
+  Build_two_variables_test_gcc_release:
+    name: Build_two_variables_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_release
+      app: Build_two_variables_test_gcc_release
+    secrets: inherit
+
+  Build_two_variables_test_clang_debug:
+    name: Build_two_variables_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_clang_debug
+      app: Build_two_variables_test_clang_debug
+    secrets: inherit
+
+  Build_two_variables_test_clang_release:
+    name: Build_two_variables_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_clang_release
+      app: Build_two_variables_test_clang_release
+    secrets: inherit
+
+  # Build sanitized test
+  Build_two_variables_test_gcc_debug_lsan:
+    name: Build_two_variables_test_gcc_debug_lsan
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug_lsan
+      app: Build_two_variables_test_gcc_debug_lsan
+    secrets: inherit
+
+  Build_two_variables_test_gcc_debug_asan:
+    name: Build_two_variables_test_gcc_debug_asan
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug_asan
+      app: Build_two_variables_test_gcc_debug_asan
+    secrets: inherit
+
+  Build_two_variables_test_gcc_debug_ubsan:
+    name: Build_two_variables_test_gcc_debug_ubsan
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug_ubsan
+      app: Build_two_variables_test_gcc_debug_ubsan
+    secrets: inherit
+
+  Build_two_variables_test_gcc_debug_tsan:
+    name: Build_two_variables_test_gcc_debug_tsan
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug_tsan
+      app: Build_two_variables_test_gcc_debug_tsan
+    secrets: inherit
+
+  # Run example
   One_variable_example:
     name: One_variable_example
     needs: Build_one_variable_example_gcc_debug
-    uses: ./.github/workflows/run_example.yml
+    uses: ./.github/workflows/run_app.yml
     with:
       artifacts_name: Build_one_variable_example_gcc_debug-${{ github.sha }}
       app: ./one-variable-example
@@ -96,10 +314,93 @@ jobs:
   Two_variables_example:
     name: Two_variables_example
     needs: Build_two_variables_example_gcc_debug
-    uses: ./.github/workflows/run_example.yml
+    uses: ./.github/workflows/run_app.yml
     with:
       artifacts_name: Build_two_variables_example_gcc_debug-${{ github.sha }}
       app: ./two-variables-example
+    secrets: inherit
+
+  # Run test
+  Utils_test:
+    name: Utils_test
+    needs: Build_utils_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_utils_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Chromosome_test:
+    name: Chromosome_test
+    needs: Build_chromosome_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_chromosome_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Individual_test:
+    name: Individual_test
+    needs: Build_individual_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_individual_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Selection_method_test:
+    name: Selection_method_test
+    needs: Build_selection_method_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_selection_method_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test:
+    name: Two_variables_test
+    needs: Build_two_variables_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  # Run sanitized test
+  Two_variables_test_lsan:
+    name: Two_variables_test_lsan
+    needs: Build_two_variables_test_gcc_debug_lsan
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug_lsan-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test_asan:
+    name: Two_variables_test_asan
+    needs: Build_two_variables_test_gcc_debug_asan
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug_asan-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test_tsan:
+    name: Two_variables_test_tsan
+    needs: Build_two_variables_test_gcc_debug_tsan
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug_tsan-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test_ubsan:
+    name: Two_variables_test_ubsan
+    needs: Build_two_variables_test_gcc_debug_ubsan
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug_ubsan-${{ github.sha }}
+      app: ./test
     secrets: inherit
 
   # Valgrind example
@@ -119,6 +420,51 @@ jobs:
     with:
       artifacts_name: Build_two_variables_example_gcc_debug-${{ github.sha }}
       app: ./two-variables-example
+    secrets: inherit
+
+  Utils_test_valgrind:
+    name: Utils_test_valgrind
+    needs: Utils_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_utils_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Chromosome_test_valgrind:
+    name: Chromosome_test_valgrind
+    needs: Chromosome_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_chromosome_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Individual_test_valgrind:
+    name: Individual_test_valgrind
+    needs: Individual_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_individual_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Selection_method_test_valgrind:
+    name: Selection_method_test_valgrind
+    needs: Selection_method_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_selection_method_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test_valgrind:
+    name: Two_variables_test_valgrind
+    needs: Two_variables_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug-${{ github.sha }}
+      app: ./test
     secrets: inherit
 
   # Quality

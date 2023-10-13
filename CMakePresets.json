@@ -31,6 +31,36 @@
           "hidden": true,
           "cacheVariables": { "TOOLCHAIN": "clang" }
         },
+
+        {
+            "name": "USE_SAN",
+            "hidden": true,
+            "cacheVariables": { "USE_SAN": true }
+        },
+        {
+            "name": "ASAN",
+            "hidden": true,
+            "inherits": "USE_SAN",
+            "cacheVariables": { "ASAN": true }
+        },
+        {
+            "name": "LSAN",
+            "hidden": true,
+            "inherits": "USE_SAN",
+            "cacheVariables": { "LSAN": true }
+        },
+        {
+            "name": "UBSAN",
+            "hidden": true,
+            "inherits": "USE_SAN",
+            "cacheVariables": { "UBSAN": true }
+        },
+        {
+            "name": "TSAN",
+            "hidden": true,
+            "inherits": "USE_SAN",
+            "cacheVariables": { "TSAN": true }
+        },
         
         {
             "name": "one_variable",
@@ -41,6 +71,32 @@
             "name": "two_variables",
             "hidden": true,
             "cacheVariables": { "APP_NAME": "example/two-variables" }
+        },
+
+        {
+            "name": "individual_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/individual" }
+        },
+        {
+            "name": "chromosome_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/chromosome" }
+        },
+        {
+            "name": "selection_method_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/selection-method" }
+        },
+        {
+            "name": "utils_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/utils" }
+        },
+        {
+            "name": "two_variables_test",
+            "hidden": true,
+            "cacheVariables": { "APP_NAME": "test/two-variable-example" }
         },
 
         {
@@ -75,6 +131,209 @@
         {
             "name": "two_variables_example_clang_release",
             "inherits": [ "Release", "two_variables", "Linux_Clang" ]
+        },
+
+        {
+            "name": "chromosome_test_gcc_debug",
+            "inherits": [ "Debug", "chromosome_test", "Linux_GCC" ]
+        },
+        {
+            "name": "chromosome_test_gcc_release",
+            "inherits": [ "Release", "chromosome_test", "Linux_GCC" ]
+        },
+        {
+            "name": "chromosome_test_clang_debug",
+            "inherits": [ "Debug", "chromosome_test", "Linux_Clang" ]
+        },
+        {
+            "name": "chromosome_test_clang_release",
+            "inherits": [ "Release", "chromosome_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "individual_test_gcc_debug",
+            "inherits": [ "Debug", "individual_test", "Linux_GCC" ]
+        },
+        {
+            "name": "individual_test_gcc_release",
+            "inherits": [ "Release", "individual_test", "Linux_GCC" ]
+        },
+        {
+            "name": "individual_test_clang_debug",
+            "inherits": [ "Debug", "individual_test", "Linux_Clang" ]
+        },
+        {
+            "name": "individual_test_clang_release",
+            "inherits": [ "Release", "individual_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "selection_method_test_gcc_debug",
+            "inherits": [ "Debug", "selection_method_test", "Linux_GCC" ]
+        },
+        {
+            "name": "selection_method_test_gcc_release",
+            "inherits": [ "Release", "selection_method_test", "Linux_GCC" ]
+        },
+        {
+            "name": "selection_method_test_clang_debug",
+            "inherits": [ "Debug", "selection_method_test", "Linux_Clang" ]
+        },
+        {
+            "name": "selection_method_test_clang_release",
+            "inherits": [ "Release", "selection_method_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "utils_test_gcc_debug",
+            "inherits": [ "Debug", "utils_test", "Linux_GCC" ]
+        },
+        {
+            "name": "utils_test_gcc_release",
+            "inherits": [ "Release", "utils_test", "Linux_GCC" ]
+        },
+        {
+            "name": "utils_test_clang_debug",
+            "inherits": [ "Debug", "utils_test", "Linux_Clang" ]
+        },
+        {
+            "name": "utils_test_clang_release",
+            "inherits": [ "Release", "utils_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "two_variables_test_gcc_debug",
+            "inherits": [ "Debug", "two_variables_test", "Linux_GCC" ]
+        },
+        {
+            "name": "two_variables_test_gcc_release",
+            "inherits": [ "Release", "two_variables_test", "Linux_GCC" ]
+        },
+        {
+            "name": "two_variables_test_clang_debug",
+            "inherits": [ "Debug", "two_variables_test", "Linux_Clang" ]
+        },
+        {
+            "name": "two_variables_test_clang_release",
+            "inherits": [ "Release", "two_variables_test", "Linux_Clang" ]
+        },
+
+        {
+            "name": "selection_method_test_gcc_debug_asan",
+            "inherits": [ "Debug", "selection_method_test", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "selection_method_test_gcc_release_asan",
+            "inherits": [ "Release", "selection_method_test", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "selection_method_test_clang_debug_asan",
+            "inherits": [ "Debug", "selection_method_test", "Linux_Clang", "ASAN" ]
+        },
+        {
+            "name": "selection_method_test_clang_release_asan",
+            "inherits": [ "Release", "selection_method_test", "Linux_Clang", "ASAN" ]
+        },
+
+        {
+            "name": "two_variables_test_gcc_debug_asan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "two_variables_test_gcc_release_asan",
+            "inherits": [ "Release", "two_variables_test", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_debug_asan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_Clang", "ASAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_release_asan",
+            "inherits": [ "Release", "two_variables_test", "Linux_Clang", "ASAN" ]
+        },
+
+        {
+            "name": "two_variables_test_gcc_debug_tsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_GCC", "TSAN" ]
+        },
+        {
+            "name": "two_variables_test_gcc_release_tsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_GCC", "TSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_debug_tsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_Clang", "TSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_release_tsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_Clang", "TSAN" ]
+        },
+
+        {
+            "name": "two_variables_test_gcc_debug_lsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_GCC", "LSAN" ]
+        },
+        {
+            "name": "two_variables_test_gcc_release_lsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_GCC", "LSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_debug_lsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_Clang", "LSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_release_lsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_Clang", "LSAN" ]
+        },
+
+        {
+            "name": "two_variables_test_gcc_debug_ubsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_GCC", "UBSAN" ]
+        },
+        {
+            "name": "two_variables_test_gcc_release_ubsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_GCC", "UBSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_debug_ubsan",
+            "inherits": [ "Debug", "two_variables_test", "Linux_Clang", "UBSAN" ]
+        },
+        {
+            "name": "two_variables_test_clang_release_ubsan",
+            "inherits": [ "Release", "two_variables_test", "Linux_Clang", "UBSAN" ]
+        },
+
+        {
+            "name": "two_variables_example_gcc_debug_asan",
+            "inherits": [ "Debug", "two_variables", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "two_variables_example_gcc_release_asan",
+            "inherits": [ "Release", "two_variables", "Linux_GCC", "ASAN" ]
+        },
+        {
+            "name": "two_variables_example_clang_debug_asan",
+            "inherits": [ "Debug", "two_variables", "Linux_Clang", "ASAN" ]
+        },
+        {
+            "name": "two_variables_example_clang_release_asan",
+            "inherits": [ "Release", "two_variables", "Linux_Clang", "ASAN" ]
+        },
+        {
+            "name": "two_variables_example_gcc_debug_tsan",
+            "inherits": [ "Debug", "two_variables", "Linux_GCC", "TSAN" ]
+        },
+        {
+            "name": "two_variables_example_gcc_release_tsan",
+            "inherits": [ "Release", "two_variables", "Linux_GCC", "TSAN" ]
+        },
+        {
+            "name": "two_variables_example_clang_debug_tsan",
+            "inherits": [ "Debug", "two_variables", "Linux_Clang", "TSAN" ]
+        },
+        {
+            "name": "two_variables_example_clang_release_tsan",
+            "inherits": [ "Release", "two_variables", "Linux_Clang", "TSAN" ]
         }
     ]
 }

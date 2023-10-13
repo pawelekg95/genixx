@@ -140,16 +140,23 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     using namespace std::chrono_literals;
     std::mutex mtx{};
     std::uint8_t threadsAvailable{config::assessmentThreads()};
-    auto assess = [&mtx, &threadsAvailable, &assessmentFunction](IndividualInfo& individual) {
+    std::uint64_t assessments = m_individuals.size();
+    auto assess = [&mtx, &threadsAvailable, &assessmentFunction, &assessments](IndividualInfo& individual) {
+        {
+            std::lock_guard lock(mtx);
+            threadsAvailable--;
+        }
         individual.score = assessmentFunction(individual.individual);
         std::lock_guard lock(mtx);
         threadsAvailable++;
+        assessments--;
     };
     for (auto& individual : m_individuals)
     {
         bool threadAvailable{};
         while (!threadAvailable)
         {
+            std::this_thread::sleep_for(1ns);
             {
                 std::lock_guard lock(mtx);
                 threadAvailable = threadsAvailable > 0;
@@ -157,11 +164,16 @@ void Population::assessPopulation(const std::function<double(Individual& individ
         }
         {
             std::lock_guard lock(mtx);
-            threadsAvailable--;
             std::thread([&assess, &individual] { assess(individual); }).detach();
         }
     }
-    while (threadsAvailable != config::assessmentThreads())
+
+    auto shouldWait = [&mtx, &assessments]() -> bool {
+        std::lock_guard lock(mtx);
+        return assessments > 0;
+    };
+
+    while (shouldWait()) // NOLINT
     {
         std::this_thread::sleep_for(1ms);
     }
