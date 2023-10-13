@@ -14,6 +14,11 @@ static const std::uint32_t cPopulationCount = 1000;
 static const float cCrossingProbability = 0.5;
 static const float cMutationProbability = 0.3;
 
+
+// Assesment function calculates mathematical function written below.
+// Genetic algorithm will aim to find the maximum for this function, for arguments range specified as chromosome range.
+// Following wolfram alpha: https://tinyurl.com/nvuu4s5s the desired score (maximum) should be: 2,4 at point
+// (phenotypes) (x: 2,35619, y: 0.0000000000001)
 static const std::function<double(genixx::Individual& individual)> cAssessmentFunction =
     [](genixx::Individual& individual) -> double {
     auto x = dynamic_cast<genixx::NumericChromosome<double>*>(individual.chromosome("x").get())->phenotype();
