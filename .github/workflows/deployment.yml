@@ -1,8 +1,8 @@
 name: Build_documentation_and_deploy
-on:
-  push:
-    branches:
-      - main
+on: push
+  # push:
+  #   branches:
+  #     - main
 
 permissions:
   contents: write
@@ -23,7 +23,7 @@ jobs:
       - name: Wait for image
         uses: lewagon/wait-on-check-action@v1.0.0
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.sha }}
           check-name: Genixx_x86_64_docker / Build_image
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           wait-interval: 30
