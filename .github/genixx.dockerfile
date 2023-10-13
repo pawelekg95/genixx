@@ -15,7 +15,7 @@ RUN apt-get update && \
     clang-format=1:10.0-50~exp1 clang-tidy=1:10.0-50~exp1 wget=1.20.3-1ubuntu2 xz-utils=5.2.4-1ubuntu1.1 valgrind=1:3.15.0-1ubuntu9.1 \
     lcov=1.14-2 curl=7.68.0-1ubuntu2.20 gnupg=2.2.19-3ubuntu2.2 flex=2.6.4-6.2 bison=2:3.5.1+dfsg-1 \
     clang-tools=1:10.0-50~exp1 python-is-python2=2.7.17-4 rsync=3.1.3-8ubuntu0.5 graphviz=2.42.2-3build2 && \
-    liblsan0=13.1.0-8ubuntu1~20.04.2 libtsan0=11.4.0-2ubuntu1~20.04 libasan5=9.4.0-1ubuntu1~20.04.2 libubsan1=13.1.0-8ubuntu1~20.04.2 && \
+    liblsan0=10.5.0-1ubuntu1~20.04 libtsan0=10.5.0-1ubuntu1~20.04 libasan5=9.4.0-1ubuntu1~20.04.2 libubsan1=10.5.0-1ubuntu1~20.04 && \
     ln -s /usr/bin/clang++-10 /usr/bin/clang++ && \
     ln -s /usr/bin/clang-10 /usr/bin/clang && \
     apt-get autoremove -y && \
@@ -59,3 +59,5 @@ WORKDIR /root/doxygen-1.9.5/build
 RUN cmake -G "Unix Makefiles" .. && \
     make && \
     make install
+
+WORKDIR /root
