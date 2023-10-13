@@ -228,6 +228,42 @@ jobs:
       app: Build_selection_method_test_clang_release
     secrets: inherit
 
+  Build_two_variables_test_gcc_debug:
+    name: Build_two_variables_test_gcc_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_debug
+      app: Build_two_variables_test_gcc_debug
+    secrets: inherit
+
+  Build_two_variables_test_gcc_release:
+    name: Build_two_variables_test_gcc_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_gcc_release
+      app: Build_two_variables_test_gcc_release
+    secrets: inherit
+
+  Build_two_variables_test_clang_debug:
+    name: Build_two_variables_test_clang_debug
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_clang_debug
+      app: Build_two_variables_test_clang_debug
+    secrets: inherit
+
+  Build_two_variables_test_clang_release:
+    name: Build_two_variables_test_clang_release
+    needs: Genixx_x86_64_docker
+    uses: ./.github/workflows/build_app.yml
+    with:
+      preset: two_variables_test_clang_release
+      app: Build_two_variables_test_clang_release
+    secrets: inherit
+
   # Run example
   One_variable_example:
     name: One_variable_example
@@ -284,6 +320,15 @@ jobs:
       app: ./test
     secrets: inherit
 
+  Two_variables_test:
+    name: Two_variables_test
+    needs: Build_two_variables_test_gcc_debug
+    uses: ./.github/workflows/run_app.yml
+    with:
+      artifacts_name: Build_two_variables_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
   # Valgrind example
   One_variable_example_valgrind:
     name: One_variable_example_valgrind
@@ -336,6 +381,15 @@ jobs:
     uses: ./.github/workflows/valgrind.yml
     with:
       artifacts_name: Build_selection_method_test_gcc_debug-${{ github.sha }}
+      app: ./test
+    secrets: inherit
+
+  Two_variables_test_valgrind:
+    name: Two_variables_test_valgrind
+    needs: Two_variables_test
+    uses: ./.github/workflows/valgrind.yml
+    with:
+      artifacts_name: Build_Two_variables_test_gcc_debug-${{ github.sha }}
       app: ./test
     secrets: inherit
 
