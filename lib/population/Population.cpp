@@ -168,7 +168,7 @@ void Population::assessPopulation(const std::function<double(Individual& individ
         }
     }
 
-    auto shouldWait = [&mtx, assessments]() -> bool {
+    auto shouldWait = [&mtx, &assessments]() -> bool {
         std::lock_guard lock(mtx);
         return assessments > 0;
     };
