@@ -167,9 +167,13 @@ void Population::assessPopulation(const std::function<double(Individual& individ
             std::thread([&assess, &individual] { assess(individual); }).detach();
         }
     }
-    // Clang tidy complains about condition not being updated inside the loop, however it is updated in detached
-    // threads.
-    while (assessments > 0) // NOLINT
+
+    auto shouldWait = [&mtx, &assessments]() -> bool {
+        std::lock_guard lock(mtx);
+        return assessments > 0;
+    };
+
+    while (shouldWait()) // NOLINT
     {
         std::this_thread::sleep_for(1ms);
     }

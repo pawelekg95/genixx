@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,13 +10,12 @@ ARG HADOLINT_URL="https://github.com/hadolint/hadolint/releases/download/v2.10.0
 
 # Install base packages
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential=12.8ubuntu1.1 g++=4:9.3.0-1ubuntu2 llvm=1:10.0-50~exp1 \
-    python3=3.8.2-0ubuntu2 python3-pip=20.0.2-5ubuntu1.9 shellcheck=0.7.0-2build2 git=1:2.25.1-1ubuntu3.11 make=4.2.1-1.2 \
-    clang-format=1:10.0-50~exp1 clang-tidy=1:10.0-50~exp1 wget=1.20.3-1ubuntu2 xz-utils=5.2.4-1ubuntu1.1 valgrind=1:3.15.0-1ubuntu9.1 \
-    lcov=1.14-2 curl=7.68.0-1ubuntu2.19 gnupg=2.2.19-3ubuntu2.2 flex=2.6.4-6.2 bison=2:3.5.1+dfsg-1 \
-    clang-tools=1:10.0-50~exp1 python-is-python2=2.7.17-4 rsync=3.1.3-8ubuntu0.5 graphviz=2.42.2-3build2 && \
-    ln -s /usr/bin/clang++-10 /usr/bin/clang++ && \
-    ln -s /usr/bin/clang-10 /usr/bin/clang && \
+    apt-get install -y --no-install-recommends build-essential=12.9ubuntu3 g++=4:11.2.0-1ubuntu1 llvm=1:14.0-55~exp2 \
+    python3=3.10.6-1~22.04 python3-pip=22.0.2+dfsg-1ubuntu0.3 shellcheck=0.8.0-2 git=1:2.34.1-1ubuntu1.9 make=4.3-4.1build1 \
+    clang-format=1:14.0-55~exp2 clang-tidy=1:14.0-55~exp2 wget=1.21.2-2ubuntu1 xz-utils=5.2.5-2ubuntu1 valgrind=1:3.18.1-1ubuntu2 \
+    lcov=1.15-1 curl=7.81.0-1ubuntu1.14 gnupg=2.2.27-3ubuntu2.1 flex=2.6.4-8build2 bison=2:3.8.2+dfsg-1build1 \
+    clang-tools=1:14.0-55~exp2 python2=2.7.18-3 rsync=3.2.7-0ubuntu0.22.04.2 graphviz=2.42.2-6 clang=1:14.0-55~exp2 \
+    liblsan0=12.3.0-1ubuntu1~22.04 libtsan0=11.4.0-1ubuntu1~22.04 libasan5=9.5.0-1ubuntu1~22.04 libubsan1=12.3.0-1ubuntu1~22.04 && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -58,3 +57,5 @@ WORKDIR /root/doxygen-1.9.5/build
 RUN cmake -G "Unix Makefiles" .. && \
     make && \
     make install
+
+WORKDIR /root
