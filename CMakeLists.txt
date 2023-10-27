@@ -16,7 +16,7 @@ endif()
 
 project(genetic_algorithm LANGUAGES C CXX)
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror $<$<COMPILE_LANGUAGE:CXX>:-std=c++17>)
+add_compile_options(-Wall -Wextra -Wpedantic -Werror $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory(lib)

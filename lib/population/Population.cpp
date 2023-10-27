@@ -6,6 +6,7 @@
 #include <chrono>
 #include <mutex>
 #include <numeric>
+#include <semaphore>
 #include <thread>
 
 namespace {
@@ -138,44 +139,23 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     }
 
     using namespace std::chrono_literals;
-    std::mutex mtx{};
-    std::uint8_t threadsAvailable{config::assessmentThreads()};
-    std::uint64_t assessments = m_individuals.size();
-    auto assess = [&mtx, &threadsAvailable, &assessmentFunction, &assessments](IndividualInfo& individual) {
-        {
-            std::lock_guard lock(mtx);
-            threadsAvailable--;
-        }
-        individual.score = assessmentFunction(individual.individual);
-        std::lock_guard lock(mtx);
-        threadsAvailable++;
-        assessments--;
-    };
+    std::counting_semaphore availableThreadSemaphore{config::assessmentThreads()};
+    std::counting_semaphore doneAssessementSemaphore{0};
+    auto assess =
+        [&availableThreadSemaphore, &doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
+            availableThreadSemaphore.acquire();
+            individual.score = assessmentFunction(individual.individual);
+            availableThreadSemaphore.release();
+            doneAssessementSemaphore.release();
+        };
     for (auto& individual : m_individuals)
     {
-        bool threadAvailable{};
-        while (!threadAvailable)
-        {
-            std::this_thread::sleep_for(1ns);
-            {
-                std::lock_guard lock(mtx);
-                threadAvailable = threadsAvailable > 0;
-            }
-        }
-        {
-            std::lock_guard lock(mtx);
-            std::thread([&assess, &individual] { assess(individual); }).detach();
-        }
+        std::thread([&assess, &individual] { assess(individual); }).detach();
     }
 
-    auto shouldWait = [&mtx, &assessments]() -> bool {
-        std::lock_guard lock(mtx);
-        return assessments > 0;
-    };
-
-    while (shouldWait()) // NOLINT
+    for (std::uint32_t i = 0; i < m_individuals.size(); i++)
     {
-        std::this_thread::sleep_for(1ms);
+        doneAssessementSemaphore.acquire();
     }
 }
 
