@@ -23,8 +23,6 @@ RUN apt-get update && \
 # Update clang alternative
 RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-15 80 && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-15 80 && \
-    update-alternatives --set clang /usr/bin/clang && \
-    update-alternatives --set clang++ /usr/bin/clang++ && \
     update-alternatives --config clang && \
     update-alternatives --config clang++
 
