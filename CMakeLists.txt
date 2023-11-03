@@ -16,13 +16,13 @@ endif()
 
 project(genetic_algorithm LANGUAGES C CXX)
 
-list(APPEND FLAGS " -Wall -Wextra -Wpedantic -Werror $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>")
+list(APPEND FLAGS "-Wall" "-Wextra" "-Wpedantic" "-Werror" "$<$<COMPILE_LANGUAGE:CXX>:-std=c++20>")
 
 if(TOOLCHAIN STREQUAL "clang")
-    list(APPEND FLAGS " -stdlib=libc++")
+    list(APPEND FLAGS "-stdlib=libstdc++")
 endif()
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror $<$<COMPILE_LANGUAGE:CXX>:-std=c++20>)
+add_compile_options(${FLAGS})
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 add_subdirectory(lib)
