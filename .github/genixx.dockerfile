@@ -14,7 +14,7 @@ RUN apt-get update && \
     python3=3.10.6-1~22.04 python3-pip=22.0.2+dfsg-1ubuntu0.3 shellcheck=0.8.0-2 git=1:2.34.1-1ubuntu1.9 make=4.3-4.1build1 \
     clang-format=1:14.0-55~exp2 clang-tidy=1:14.0-55~exp2 wget=1.21.2-2ubuntu1 xz-utils=5.2.5-2ubuntu1 valgrind=1:3.18.1-1ubuntu2 \
     lcov=1.15-1 curl=7.81.0-1ubuntu1.14 gnupg=2.2.27-3ubuntu2.1 flex=2.6.4-8build2 bison=2:3.8.2+dfsg-1build1 libstdc++-11-dev=11.4.0-1ubuntu1~22.04 \
-    clang-tools=1:14.0-55~exp2 python2=2.7.18-3 rsync=3.2.7-0ubuntu0.22.04.2 graphviz=2.42.2-6 clang=1:14.0-55~exp2 libc++-11-dev=1:11.1.0-6 \
+    clang-tools=1:14.0-55~exp2 python2=2.7.18-3 rsync=3.2.7-0ubuntu0.22.04.2 graphviz=2.42.2-6 clang=1:14.0-55~exp2 libc++-15-dev=1:15.0.7-0ubuntu0.22.04.3 \
     liblsan0=12.3.0-1ubuntu1~22.04 libtsan0=11.4.0-1ubuntu1~22.04 libasan5=9.5.0-1ubuntu1~22.04 libubsan1=12.3.0-1ubuntu1~22.04 && \
     apt-get autoremove -y && \
     apt-get clean && \
