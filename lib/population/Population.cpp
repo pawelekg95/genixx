@@ -143,13 +143,13 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     std::counting_semaphore doneAssessementSemaphore{0};
     auto assess =
         [&availableThreadSemaphore, &doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
-            availableThreadSemaphore.acquire();
             individual.score = assessmentFunction(individual.individual);
             availableThreadSemaphore.release();
             doneAssessementSemaphore.release();
         };
     for (auto& individual : m_individuals)
     {
+        availableThreadSemaphore.acquire();
         std::thread([&assess, &individual] { assess(individual); }).detach();
     }
 
