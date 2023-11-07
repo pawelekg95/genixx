@@ -139,8 +139,8 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     }
 
     using namespace std::chrono_literals;
-    std::counting_semaphore availableThreadSemaphore{config::assessmentThreads()};
-    std::counting_semaphore doneAssessementSemaphore{0};
+    std::counting_semaphore<> availableThreadSemaphore{config::assessmentThreads()};
+    std::counting_semaphore<> doneAssessementSemaphore{0};
     auto assess =
         [&availableThreadSemaphore, &doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
             individual.score = assessmentFunction(individual.individual);
