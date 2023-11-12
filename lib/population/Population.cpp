@@ -2,16 +2,21 @@
 
 #include "genixx/error/exceptions.h"
 
+#include <rethreadme/Thread.h>
+
 #include <algorithm>
 #include <chrono>
 #include <mutex>
 #include <numeric>
 #include <semaphore>
 #include <thread>
+#include <list>
+#include <functional>
 
 namespace {
 
-std::uint8_t threadsToAssess{1};
+std::mutex threadsAccessMtx{};
+std::vector<rethreadme::Thread<std::function<void()>>> availableThreads{1};
 
 } // namespace
 
@@ -20,12 +25,27 @@ namespace config {
 
 std::uint8_t assessmentThreads()
 {
-    return threadsToAssess;
+    std::lock_guard lock(threadsAccessMtx);
+    return availableThreads.size();
 }
 
 std::uint8_t assessmentThreads(std::uint8_t threads)
 {
-    threadsToAssess = threads;
+    std::lock_guard lock(threadsAccessMtx);
+    if (availableThreads.size() < threads)
+    {
+        for (std::uint32_t i = threads - availableThreads.size(); i > 0; i--)
+        {
+            availableThreads.push_back(rethreadme::Thread<std::function<void()>>());
+        }
+    }
+    else if (availableThreads.size() > threads)
+    {
+        while (availableThreads.size() > threads)
+        {
+            availableThreads.erase(availableThreads.end() - 1);
+        }
+    }
     return assessmentThreads();
 }
 
