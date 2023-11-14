@@ -2,7 +2,7 @@ include(FetchContent)
 FetchContent_Declare(
     rethreadme
     GIT_REPOSITORY  https://github.com/pawelekg95/reThreadMe.git
-    GIT_TAG         ed10fd10ebc51de8b42418137e94ce994bda2d57
+    GIT_TAG         9405727b385b3be1d7db52906b119987343c5316
 )
 
 FetchContent_GetProperties(rethreadme)

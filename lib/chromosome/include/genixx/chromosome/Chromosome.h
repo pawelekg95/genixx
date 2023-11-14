@@ -34,7 +34,8 @@ class Chromosome : public IChromosome
 public:
     explicit Chromosome(const std::vector<Gene>& genes)
         : m_genes(genes)
-    {}
+    {
+    }
 
     void cross(std::shared_ptr<IChromosome> other) override
     {

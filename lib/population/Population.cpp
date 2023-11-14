@@ -6,17 +6,31 @@
 
 #include <algorithm>
 #include <chrono>
+#include <functional>
+#include <list>
 #include <mutex>
 #include <numeric>
+#include <optional>
 #include <semaphore>
 #include <thread>
-#include <list>
-#include <functional>
 
 namespace {
 
 std::mutex threadsAccessMtx{};
 std::vector<rethreadme::Thread<std::function<void()>>> availableThreads{1};
+
+std::optional<rethreadme::Thread<std::function<void()>>*> getAvailableThread()
+{
+    std::lock_guard lock(threadsAccessMtx);
+    for (auto& thread : availableThreads)
+    {
+        if (thread.idle())
+        {
+            return &thread;
+        }
+    }
+    return std::nullopt;
+}
 
 } // namespace
 
@@ -46,14 +60,15 @@ std::uint8_t assessmentThreads(std::uint8_t threads)
             availableThreads.erase(availableThreads.end() - 1);
         }
     }
-    return assessmentThreads();
+    return availableThreads.size();
 }
 
 } // namespace config
 
 Population::Population(float crossingProbability)
     : m_crossingProbability(crossingProbability)
-{}
+{
+}
 
 Population Population::nextGeneration(const selection::SelectionMethod& selectionMethod) const
 {
@@ -159,18 +174,20 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     }
 
     using namespace std::chrono_literals;
-    std::counting_semaphore<> availableThreadSemaphore{config::assessmentThreads()};
     std::counting_semaphore<> doneAssessementSemaphore{0};
-    auto assess =
-        [&availableThreadSemaphore, &doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
-            individual.score = assessmentFunction(individual.individual);
-            availableThreadSemaphore.release();
-            doneAssessementSemaphore.release();
-        };
+    auto assess = [&doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
+        individual.score = assessmentFunction(individual.individual);
+        doneAssessementSemaphore.release();
+    };
     for (auto& individual : m_individuals)
     {
-        availableThreadSemaphore.acquire();
-        std::thread([&assess, &individual] { assess(individual); }).detach();
+        auto threadToExecute = getAvailableThread();
+        while (!threadToExecute)
+        {
+            std::this_thread::sleep_for(10ms);
+            threadToExecute = getAvailableThread();
+        }
+        threadToExecute.value()->queue(std::function<void()>([&assess, &individual]() { assess(individual); }));
     }
 
     for (std::uint32_t i = 0; i < m_individuals.size(); i++)

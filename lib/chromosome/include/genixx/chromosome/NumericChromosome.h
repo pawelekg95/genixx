@@ -20,7 +20,8 @@ public:
         : Chromosome<bool, Numeric>(genes)
         , m_min(min)
         , m_max(max)
-    {}
+    {
+    }
 
     void mutate() override
     {

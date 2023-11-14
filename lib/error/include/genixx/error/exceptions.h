@@ -12,7 +12,8 @@ public:
 
     explicit WrongSizeException(const std::string& comment)
         : m_comment(m_defaultComment + " " + comment)
-    {}
+    {
+    }
 
     const char* what() const noexcept override { return m_comment.c_str(); }
 
@@ -28,7 +29,8 @@ public:
 
     explicit NullFunctionException(const std::string& comment)
         : m_comment(m_defaultComment + " " + comment)
-    {}
+    {
+    }
 
     const char* what() const noexcept override { return m_comment.c_str(); }
 
@@ -44,7 +46,8 @@ public:
 
     explicit InvalidArgumentException(const std::string& comment)
         : m_comment(m_defaultComment + " " + comment)
-    {}
+    {
+    }
 
     const char* what() const noexcept override { return m_comment.c_str(); }
 

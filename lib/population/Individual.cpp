@@ -16,7 +16,8 @@ Individual::Individual(const Individual& other)
 
 Individual::Individual(Individual&& other) noexcept
     : m_chromosomes(std::move(other.m_chromosomes))
-{}
+{
+}
 
 Individual& Individual::operator=(const Individual& other)
 {
