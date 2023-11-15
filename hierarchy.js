@@ -12,7 +12,7 @@ var hierarchy =
       [ "genixx::Chromosome< Gene, Phenotype >", "classgenixx_1_1Chromosome.html", null ]
     ] ],
     [ "genixx::Individual", "classgenixx_1_1Individual.html", null ],
-    [ "genixx::Population::IndividualInfo", "structgenixx_1_1Population_1_1IndividualInfo.html", null ],
+    [ "genixx::IndividualInfo", "structgenixx_1_1IndividualInfo.html", null ],
     [ "genixx::Population", "classgenixx_1_1Population.html", null ],
     [ "vector< bool >", "classstd_1_1vector_3_01bool_01_4.html", null ]
 ];

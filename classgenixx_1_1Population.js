@@ -1,6 +1,5 @@
 var classgenixx_1_1Population =
 [
-    [ "IndividualInfo", "structgenixx_1_1Population_1_1IndividualInfo.html", "structgenixx_1_1Population_1_1IndividualInfo" ],
     [ "Population", "classgenixx_1_1Population.html#ad33c609fbbde73f1b0b50449a69593d6", null ],
     [ "Population", "classgenixx_1_1Population.html#a876c1486c228ed1d72a40b955fa050a0", null ],
     [ "assessPopulation", "classgenixx_1_1Population.html#a78c75650117cad60717a9716685f0c79", null ],

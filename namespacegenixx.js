@@ -14,6 +14,7 @@ var namespacegenixx =
     [ "Chromosome", "classgenixx_1_1Chromosome.html", "classgenixx_1_1Chromosome" ],
     [ "IChromosome", "classgenixx_1_1IChromosome.html", "classgenixx_1_1IChromosome" ],
     [ "Individual", "classgenixx_1_1Individual.html", "classgenixx_1_1Individual" ],
+    [ "IndividualInfo", "structgenixx_1_1IndividualInfo.html", "structgenixx_1_1IndividualInfo" ],
     [ "InvalidArgumentException", "classgenixx_1_1InvalidArgumentException.html", "classgenixx_1_1InvalidArgumentException" ],
     [ "NullFunctionException", "classgenixx_1_1NullFunctionException.html", "classgenixx_1_1NullFunctionException" ],
     [ "NumericChromosome", "classgenixx_1_1NumericChromosome.html", "classgenixx_1_1NumericChromosome" ],
