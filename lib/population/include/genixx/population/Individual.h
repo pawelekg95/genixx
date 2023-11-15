@@ -19,7 +19,8 @@ class Individual
 public:
     explicit Individual(const Chromosomes& chromosomes)
         : m_chromosomes(chromosomes)
-    {}
+    {
+    }
 
     Individual(const Individual& other);
 

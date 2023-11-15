@@ -2,15 +2,65 @@
 
 #include "genixx/error/exceptions.h"
 
+#include <rethreadme/Thread.h>
+
 #include <algorithm>
 #include <chrono>
+#include <functional>
+#include <list>
 #include <mutex>
 #include <numeric>
-#include <thread>
+#include <optional>
+#include <semaphore>
 
 namespace {
 
-std::uint8_t threadsToAssess{1};
+class Threads
+{
+public:
+    static std::uint8_t size()
+    {
+        std::lock_guard lock(m_threadsAccessMtx);
+        return m_availableThreads.size();
+    }
+
+    static std::uint8_t size(std::uint8_t threads)
+    {
+        std::lock_guard lock(m_threadsAccessMtx);
+        if (m_availableThreads.size() < threads)
+        {
+            for (std::uint32_t i = threads - m_availableThreads.size(); i > 0; i--)
+            {
+                m_availableThreads.emplace_back(rethreadme::Thread<std::function<void()>>());
+            }
+        }
+        else if (m_availableThreads.size() > threads)
+        {
+            while (m_availableThreads.size() > threads)
+            {
+                m_availableThreads.erase(m_availableThreads.end() - 1);
+            }
+        }
+        return m_availableThreads.size();
+    }
+
+    static std::optional<rethreadme::Thread<std::function<void()>>*> getAvailableThread()
+    {
+        std::lock_guard lock(m_threadsAccessMtx);
+        for (auto& thread : m_availableThreads)
+        {
+            if (thread.idle())
+            {
+                return &thread;
+            }
+        }
+        return std::nullopt;
+    }
+
+private:
+    static inline std::mutex m_threadsAccessMtx{};                                              // NOLINT
+    static inline std::vector<rethreadme::Thread<std::function<void()>>> m_availableThreads{1}; // NOLINT
+};
 
 } // namespace
 
@@ -19,20 +69,20 @@ namespace config {
 
 std::uint8_t assessmentThreads()
 {
-    return threadsToAssess;
+    return Threads::size();
 }
 
 std::uint8_t assessmentThreads(std::uint8_t threads)
 {
-    threadsToAssess = threads;
-    return assessmentThreads();
+    return Threads::size(threads);
 }
 
 } // namespace config
 
 Population::Population(float crossingProbability)
     : m_crossingProbability(crossingProbability)
-{}
+{
+}
 
 Population Population::nextGeneration(const selection::SelectionMethod& selectionMethod) const
 {
@@ -76,7 +126,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
     std::uint32_t next{current + 1};
     for (std::uint32_t i = 0; i < pairsCount; i++)
     {
-        if (randomPairs[i] < m_crossingProbability * 100)
+        if (static_cast<float>(randomPairs[i]) < m_crossingProbability * 100)
         {
             auto currentIndividual = token.m_individuals[current].individual;
             auto nextIndividual = token.m_individuals[next].individual;
@@ -90,7 +140,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
 
     token.generationReplacement();
 
-    std::int32_t i = token.size() - 1;
+    std::uint32_t i = token.size() - 1;
     while (token.size() < m_individuals.size())
     {
         token.populate(token.m_individuals[i].individual.breed());
@@ -138,44 +188,25 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     }
 
     using namespace std::chrono_literals;
-    std::mutex mtx{};
-    std::uint8_t threadsAvailable{config::assessmentThreads()};
-    std::uint64_t assessments = m_individuals.size();
-    auto assess = [&mtx, &threadsAvailable, &assessmentFunction, &assessments](IndividualInfo& individual) {
-        {
-            std::lock_guard lock(mtx);
-            threadsAvailable--;
-        }
+    std::counting_semaphore<> doneAssessementSemaphore{0};
+    auto assess = [&doneAssessementSemaphore, &assessmentFunction](IndividualInfo& individual) {
         individual.score = assessmentFunction(individual.individual);
-        std::lock_guard lock(mtx);
-        threadsAvailable++;
-        assessments--;
+        doneAssessementSemaphore.release();
     };
     for (auto& individual : m_individuals)
     {
-        bool threadAvailable{};
-        while (!threadAvailable)
+        auto threadToExecute = Threads::getAvailableThread();
+        while (!threadToExecute)
         {
-            std::this_thread::sleep_for(1ns);
-            {
-                std::lock_guard lock(mtx);
-                threadAvailable = threadsAvailable > 0;
-            }
+            std::this_thread::sleep_for(10ms);
+            threadToExecute = Threads::getAvailableThread();
         }
-        {
-            std::lock_guard lock(mtx);
-            std::thread([&assess, &individual] { assess(individual); }).detach();
-        }
+        threadToExecute.value()->queue(std::function<void()>([&assess, &individual]() { assess(individual); }));
     }
 
-    auto shouldWait = [&mtx, &assessments]() -> bool {
-        std::lock_guard lock(mtx);
-        return assessments > 0;
-    };
-
-    while (shouldWait()) // NOLINT
+    for (std::uint32_t i = 0; i < m_individuals.size(); i++)
     {
-        std::this_thread::sleep_for(1ms);
+        doneAssessementSemaphore.acquire();
     }
 }
 
@@ -186,7 +217,7 @@ double Population::averageScore() const
                m_individuals.end(),
                0.0,
                [](double current, const IndividualInfo& individual) { return current += individual.score; }) /
-           m_individuals.size();
+           static_cast<double>(m_individuals.size());
 }
 
 double Population::bestScore() const

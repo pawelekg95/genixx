@@ -15,6 +15,12 @@ std::uint8_t assessmentThreads(std::uint8_t threads);
 
 } // namespace config
 
+struct IndividualInfo
+{
+    Individual individual;
+    double score{};
+};
+
 class Population
 {
 public:
@@ -46,12 +52,6 @@ private:
     void generationReplacement();
 
 private:
-    struct IndividualInfo
-    {
-        Individual individual;
-        double score{};
-    };
-
     std::vector<IndividualInfo> m_individuals;
     std::uint32_t m_currentGeneration{1};
     float m_crossingProbability{1.0};

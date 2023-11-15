@@ -20,7 +20,8 @@ public:
         : Chromosome<bool, Numeric>(genes)
         , m_min(min)
         , m_max(max)
-    {}
+    {
+    }
 
     void mutate() override
     {
@@ -59,7 +60,7 @@ public:
         return std::make_shared<NumericChromosome<Numeric>>(genes, min, max);
     }
 
-    bool operator==(const IChromosome& other) const override
+    bool comparisonImpl(const IChromosome& other) const override
     {
         const auto& otherRef = dynamic_cast<const NumericChromosome<Numeric>&>(other);
         if (NumericChromosome<Numeric>::m_genes.size() != otherRef.m_genes.size())
@@ -79,8 +80,6 @@ public:
         }
         return true;
     }
-
-    bool operator!=(const IChromosome& other) const override { return !(*this == other); }
 
 private:
     Numeric m_min{};

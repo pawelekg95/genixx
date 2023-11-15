@@ -23,9 +23,12 @@ public:
 
     virtual void cross(std::shared_ptr<IChromosome> other) = 0;
 
-    virtual bool operator==(const IChromosome& other) const = 0;
+    friend bool operator==(const IChromosome& lhs, const IChromosome& rhs) { return lhs.comparisonImpl(rhs); }
 
-    virtual bool operator!=(const IChromosome& other) const = 0;
+    friend bool operator!=(const IChromosome& lhs, const IChromosome& rhs) { return !lhs.comparisonImpl(rhs); }
+
+protected:
+    virtual bool comparisonImpl(const IChromosome& other) const = 0;
 };
 
 template <typename Gene, typename Phenotype>
@@ -34,7 +37,8 @@ class Chromosome : public IChromosome
 public:
     explicit Chromosome(const std::vector<Gene>& genes)
         : m_genes(genes)
-    {}
+    {
+    }
 
     void cross(std::shared_ptr<IChromosome> other) override
     {
