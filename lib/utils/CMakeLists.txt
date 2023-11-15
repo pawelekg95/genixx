@@ -9,5 +9,3 @@ target_include_directories(genixx-utils
 
 target_link_libraries(genixx-utils
     INTERFACE genixx::error fmt)
-
-target_compile_features(genixx-utils INTERFACE cxx_std_17)

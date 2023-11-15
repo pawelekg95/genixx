@@ -12,7 +12,6 @@
 #include <numeric>
 #include <optional>
 #include <semaphore>
-#include <thread>
 
 namespace {
 
