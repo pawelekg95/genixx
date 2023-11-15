@@ -5,6 +5,7 @@
 
 #include <fmt/core.h>
 
+#include <algorithm>
 #include <utility>
 
 namespace genixx {
@@ -91,18 +92,19 @@ bool Individual::operator==(const Individual& other) const
     {
         return false;
     }
-    for (const auto& [id, chromosome] : m_chromosomes)
-    {
-        if (other.m_chromosomes.find(id) == other.m_chromosomes.end())
-        {
-            return false;
-        }
-        if (*chromosome != *other.m_chromosomes.at(id))
-        {
-            return false;
-        }
-    }
-    return true;
+    return std::all_of(m_chromosomes.begin(),
+                       m_chromosomes.end(),
+                       [&other](const std::pair<std::string, std::shared_ptr<IChromosome>>& chromosome) {
+                           if (other.m_chromosomes.find(chromosome.first) == other.m_chromosomes.end())
+                           {
+                               return false;
+                           }
+                           if (*chromosome.second != *other.m_chromosomes.at(chromosome.first))
+                           {
+                               return false;
+                           }
+                           return true;
+                       });
 }
 
 bool Individual::operator!=(const Individual& other) const

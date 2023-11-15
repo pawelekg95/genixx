@@ -15,21 +15,52 @@
 
 namespace {
 
-std::mutex threadsAccessMtx{};
-std::vector<rethreadme::Thread<std::function<void()>>> availableThreads{1};
-
-std::optional<rethreadme::Thread<std::function<void()>>*> getAvailableThread()
+class Threads
 {
-    std::lock_guard lock(threadsAccessMtx);
-    for (auto& thread : availableThreads)
+public:
+    static std::uint8_t size()
     {
-        if (thread.idle())
-        {
-            return &thread;
-        }
+        std::lock_guard lock(m_threadsAccessMtx);
+        return m_availableThreads.size();
     }
-    return std::nullopt;
-}
+
+    static std::uint8_t size(std::uint8_t threads)
+    {
+        std::lock_guard lock(m_threadsAccessMtx);
+        if (m_availableThreads.size() < threads)
+        {
+            for (std::uint32_t i = threads - m_availableThreads.size(); i > 0; i--)
+            {
+                m_availableThreads.emplace_back(rethreadme::Thread<std::function<void()>>());
+            }
+        }
+        else if (m_availableThreads.size() > threads)
+        {
+            while (m_availableThreads.size() > threads)
+            {
+                m_availableThreads.erase(m_availableThreads.end() - 1);
+            }
+        }
+        return m_availableThreads.size();
+    }
+
+    static std::optional<rethreadme::Thread<std::function<void()>>*> getAvailableThread()
+    {
+        std::lock_guard lock(m_threadsAccessMtx);
+        for (auto& thread : m_availableThreads)
+        {
+            if (thread.idle())
+            {
+                return &thread;
+            }
+        }
+        return std::nullopt;
+    }
+
+private:
+    static inline std::mutex m_threadsAccessMtx{};                                              // NOLINT
+    static inline std::vector<rethreadme::Thread<std::function<void()>>> m_availableThreads{1}; // NOLINT
+};
 
 } // namespace
 
@@ -38,28 +69,12 @@ namespace config {
 
 std::uint8_t assessmentThreads()
 {
-    std::lock_guard lock(threadsAccessMtx);
-    return availableThreads.size();
+    return Threads::size();
 }
 
 std::uint8_t assessmentThreads(std::uint8_t threads)
 {
-    std::lock_guard lock(threadsAccessMtx);
-    if (availableThreads.size() < threads)
-    {
-        for (std::uint32_t i = threads - availableThreads.size(); i > 0; i--)
-        {
-            availableThreads.push_back(rethreadme::Thread<std::function<void()>>());
-        }
-    }
-    else if (availableThreads.size() > threads)
-    {
-        while (availableThreads.size() > threads)
-        {
-            availableThreads.erase(availableThreads.end() - 1);
-        }
-    }
-    return availableThreads.size();
+    return Threads::size(threads);
 }
 
 } // namespace config
@@ -111,7 +126,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
     std::uint32_t next{current + 1};
     for (std::uint32_t i = 0; i < pairsCount; i++)
     {
-        if (randomPairs[i] < m_crossingProbability * 100)
+        if (static_cast<float>(randomPairs[i]) < m_crossingProbability * 100)
         {
             auto currentIndividual = token.m_individuals[current].individual;
             auto nextIndividual = token.m_individuals[next].individual;
@@ -125,7 +140,7 @@ Population Population::nextGeneration(const selection::SelectionMethod& selectio
 
     token.generationReplacement();
 
-    std::int32_t i = token.size() - 1;
+    std::uint32_t i = token.size() - 1;
     while (token.size() < m_individuals.size())
     {
         token.populate(token.m_individuals[i].individual.breed());
@@ -180,11 +195,11 @@ void Population::assessPopulation(const std::function<double(Individual& individ
     };
     for (auto& individual : m_individuals)
     {
-        auto threadToExecute = getAvailableThread();
+        auto threadToExecute = Threads::getAvailableThread();
         while (!threadToExecute)
         {
             std::this_thread::sleep_for(10ms);
-            threadToExecute = getAvailableThread();
+            threadToExecute = Threads::getAvailableThread();
         }
         threadToExecute.value()->queue(std::function<void()>([&assess, &individual]() { assess(individual); }));
     }
@@ -202,7 +217,7 @@ double Population::averageScore() const
                m_individuals.end(),
                0.0,
                [](double current, const IndividualInfo& individual) { return current += individual.score; }) /
-           m_individuals.size();
+           static_cast<double>(m_individuals.size());
 }
 
 double Population::bestScore() const
