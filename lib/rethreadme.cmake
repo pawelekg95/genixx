@@ -6,6 +6,8 @@ FetchContent_Declare(
 )
 
 FetchContent_GetProperties(rethreadme)
-FetchContent_Populate(rethreadme)
+if (NOT rethreadme_POPULATED)
+    FetchContent_Populate(rethreadme)
+endif ()
 
 add_subdirectory(${rethreadme_SOURCE_DIR}/lib ${rethreadme_BINARY_DIR})
